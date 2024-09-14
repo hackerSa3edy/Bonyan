@@ -1,0 +1,66 @@
+name: Bonyan
+
+services:
+  auth_postgresdb:
+    container_name: postgres
+    hostname: postgres
+    image: postgres:16
+    ports:
+      - "5432:${DATABASE_PORT}"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_PORT=${DATABASE_PORT}
+    networks:
+      - default
+
+  auth_redis:
+    container_name: redis
+    hostname: redis
+    image: redis:6-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - default
+
+  auth_backend:
+    container_name: auth_service
+    build:
+      context: ./services/auth_service
+      dockerfile: Dockerfile
+    entrypoint: "/app/entrypoint.sh"
+    environment:
+      - ENV=.env
+    ports:
+      - "3000:80"
+    depends_on:
+      - auth_postgresdb
+      - auth_redis
+    networks:
+      - default
+
+  auth_celery_worker:
+    build:
+      context: ./services/auth_service
+      dockerfile: Dockerfile
+    command: celery -A bonyanAuthService worker --loglevel=info
+    environment:
+      - ENV=.env
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL}
+      - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
+    depends_on:
+      - auth_backend
+      - auth_redis
+    networks:
+      - default
+
+volumes:
+  postgres_data:
+    name: postgres_data
+
+networks:
+  default:
+    name: Bonyan-network

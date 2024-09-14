@@ -65,7 +65,6 @@ CREATE TABLE IF NOT EXISTS UserAuth.users
  role         enum('creator', 'resolver') NOT NULL,
  created_at   timestamp with time zone NOT NULL,
  updated_at   timestamp with time zone NOT NULL,
- is_anonymous boolean NOT NULL,
  CONSTRAINT PK_1 PRIMARY KEY ( "id" ),
  CONSTRAINT Index_1 UNIQUE ( email )
 );
