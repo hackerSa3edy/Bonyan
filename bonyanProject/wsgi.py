@@ -1,5 +1,5 @@
 """
-WSGI config for bonyanAuthService project.
+WSGI config for bonyanProject project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bonyanAuthService.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bonyanProject.settings')
 
 application = get_wsgi_application()
