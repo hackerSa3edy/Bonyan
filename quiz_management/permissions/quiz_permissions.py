@@ -1,10 +1,6 @@
-from django.db import models
-from ..models import QuizAssignment
+from django.apps import apps
 
-class QuizPermissionsMixin(models.Model):
-    class Meta:
-        abstract = True
-
+class QuizPermissionsMixin:
     @classmethod
     def has_create_permission(cls, user):
         return user.has_perm('quiz.create_quiz')
@@ -19,12 +15,10 @@ class QuizPermissionsMixin(models.Model):
         return user.has_perm('quiz.view_quiz') or (self.is_published and user.has_perm('quiz.take_quiz'))
 
     def has_take_permission(self, user):
+        QuizAssignment = apps.get_model('quiz_management', 'QuizAssignment')
         return user.has_perm('quiz.take_quiz') and (self.is_published or QuizAssignment.objects.filter(quiz=self, user=user).exists())
 
-class QuizAttemptPermissionsMixin(models.Model):
-    class Meta:
-        abstract = True
-
+class QuizAttemptPermissionsMixin:
     @classmethod
     def has_create_permission(cls, user, quiz):
         return quiz.has_take_permission(user)

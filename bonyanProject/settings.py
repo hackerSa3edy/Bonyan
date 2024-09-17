@@ -58,8 +58,11 @@ THIRD_PARTY_APPS = [
 ]
 
 PROJECT_APPS = [
-    'user_profile',
     'authentication',
+    'question_management',
+    'quiz_management',
+    'quiz_participation',
+    'user_profile',
 ]
 
 DJANGO_APPS = [
