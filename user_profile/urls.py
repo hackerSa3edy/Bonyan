@@ -1,8 +1,15 @@
 from django.urls import path
 from .views import UserRegisterView, UserActivationView, UserProfileView
 
+app_name = 'user_profile'  # Namespace for the app
+
 urlpatterns = [
-    path('register/', UserRegisterView.as_view(), name='user-register'),
-    path('activate/<uuid:token>/', UserActivationView.as_view(), name='user-activate'),
-    path('profile/', UserProfileView.as_view(), name='user-profile'),
+    # URL pattern for user registration
+    path('user/register/', UserRegisterView.as_view(), name='register'),
+    
+    # URL pattern for user activation with a token
+    path('user/activate/<uuid:token>/', UserActivationView.as_view(), name='activate'),
+    
+    # URL pattern for user profile
+    path('user/profile/', UserProfileView.as_view(), name='profile'),
 ]

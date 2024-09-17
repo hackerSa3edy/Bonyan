@@ -3,7 +3,7 @@ from user_profile.models import User
 from ..permissions import QuizPermissionsMixin
 import uuid
 
-class Quiz(QuizPermissionsMixin, models.Model):
+class Quiz(models.Model, QuizPermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)

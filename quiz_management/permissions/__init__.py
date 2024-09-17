@@ -1,1 +1,1 @@
-from quiz_management.permissions.quiz_permissions import *
+from quiz_management.permissions.quiz_permissions import QuizPermissionsMixin, QuizAttemptPermissionsMixin

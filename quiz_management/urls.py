@@ -1,10 +1,15 @@
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import SimpleRouter
 from .views import QuizViewSet
 
-router = DefaultRouter()
-router.register(r'quizzes', QuizViewSet)
+# Initialize the router
+router = SimpleRouter()
+router.register(r'quizzes', QuizViewSet, basename='quizzes')
 
+app_name = 'quiz_management'  # Namespace for the app
+
+# Manually add the URLs from the router, excluding the root view
 urlpatterns = [
-    path('', include(router.urls)),
+    # Include the router URLs under the 'quizzes/' path
+    path('quizzes/', include((router.urls, 'quizzes'), namespace='quizzes')),
 ]

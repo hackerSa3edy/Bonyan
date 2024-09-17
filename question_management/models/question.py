@@ -18,6 +18,7 @@ class Question(models.Model):
         choices=QUESTION_TYPE_CHOICES,
         default='one choice',
     )
+    weight = models.DecimalField(max_digits=5, decimal_places=2, default=1)
 
     options = models.JSONField()
     correct_answers = models.JSONField()
