@@ -1,14 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+    <script src="{% static 'scripts/login.js' %}"></script>
     <style>
         .bg-blur {
-            background-image: url('../statics/assets/login_background.jpg');
+            background-image: url("{% static 'assets/background.jpg' %}");
             background-size: cover;
             background-position: center;
             filter: blur(8px);
@@ -17,15 +20,44 @@
             height: 100%;
             z-index: -1;
         }
+        .error-popup {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .error-popup.show {
+            display: block;
+            animation: fadeInOut 5s ease-in-out forwards;
+        }
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            10%, 90% { opacity: 1; }
+        }
     </style>
 </head>
 <body class="bg-gray-100 font-roboto">
     <div class="bg-blur"></div>
+    <div id="error-popup" class="error-popup">
+        <i class="fas fa-exclamation-circle mr-2"></i>
+        <span id="error-message"></span>
+    </div>
     <div class="flex min-h-screen justify-center items-center p-4">
         <!-- Login Form Container -->
         <div class="w-full max-w-md bg-white shadow-md rounded-lg p-6 sm:p-8 bg-opacity-90">
+            <!-- Logo -->
+            <div class="flex items-center mb-4">
+                <img src="{% static 'assets/BonyanLogo.png' %}" alt="Bonyan logo" class="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 mr-2">
+            </div>
             <div class="flex items-center mb-6 sm:mb-8 justify-center">
-                <img alt="Bonyan logo" class="mr-2 h-8 w-8 sm:h-10 sm:w-10" src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-LmQ09WWGIGwOeeA4ArnRw0x5/user-uJPET5fjNenSso8wCETWVNOp/img-jOW1efAYVG81tsTWSfBWsDXT.png?st=2024-09-14T01%3A18%3A02Z&se=2024-09-14T03%3A18%3A02Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-09-13T23%3A13%3A14Z&ske=2024-09-14T23%3A13%3A14Z&sks=b&skv=2024-08-04&sig=0Ilt2iVFDjYgwwDZOvf0oHtgXYW5EQ9IUmKVZHhLCOg%3D"/>
                 <h1 class="text-3xl sm:text-4xl font-bold text-blue-600">
                     Bonyan
                 </h1>
@@ -36,24 +68,24 @@
             <p class="text-gray-500 mb-6 sm:mb-8 text-center text-sm sm:text-base">
                 Please enter login details below
             </p>
-            <form class="w-full mx-auto">
+            <form class="w-full mx-auto" id="login-form">
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
                         Email
                     </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" placeholder="Enter your email" type="email"/>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" placeholder="Enter your email" type="email" required/>
                 </div>
                 <div class="mb-6">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
                         Password
                     </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" placeholder="Enter your password" type="password"/>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" placeholder="Enter your password" type="password" required/>
                     <p class="text-right text-blue-500 text-sm">
                         <a href="#" class="hover:underline">Forgot password?</a>
                     </p>
                 </div>
                 <div class="flex items-center justify-between mb-6">
-                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300" type="button">
+                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300" type="submit">
                         Sign in
                     </button>
                 </div>
@@ -62,7 +94,7 @@
                 </div>
                 <p class="text-center text-gray-500 text-sm sm:text-base">
                     Don't have an account?
-                    <a class="text-blue-500 hover:underline ml-1" href="#">Sign Up</a>
+                    <a class="text-blue-500 hover:underline ml-1" href="{% url 'user_profile-web:register' %}">Sign Up</a>
                 </p>
             </form>
         </div>
