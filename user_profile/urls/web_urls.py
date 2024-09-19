@@ -7,5 +7,5 @@ urlpatterns = [
     # URL pattern for the login view
     path('register/', register_view, name='register'),
     path('activation/', account_activation_view, name='activation-message'),
-    path('activated/', activated_view, name='activated'),
+    path('activate/<uuid:token>/', activated_view, name='activated'),
 ]

@@ -9,3 +9,5 @@ docker-compose.yml
 .dockerignore
 **/migrations/*
 !**/migrations/__init__.py
+*Dockerfile
+*.code-workspace

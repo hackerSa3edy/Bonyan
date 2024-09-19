@@ -77,14 +77,13 @@ $(document).ready(function() {
         };
 
         try {
-            const response = await $.ajax({
-                url: '/api/user/register/',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(data),
+            const response = await fetch('/api/user/register/', {
+                method: 'POST',
                 headers: {
+                    'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
+                body: JSON.stringify(data)
             });
 
             if (response.ok) {

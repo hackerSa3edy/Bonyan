@@ -1,7 +1,7 @@
 name: Bonyan
 
 services:
-  auth_postgresdb:
+  postgresdb:
     container_name: postgres
     hostname: postgres
     image: postgres:16
@@ -17,49 +17,61 @@ services:
     networks:
       - default
 
-  auth_redis:
+  redis:
     container_name: redis
     hostname: redis
     image: redis:6-alpine
     ports:
       - "6379:6379"
+    volumes:
+      - redis_data:/data
     networks:
       - default
+    command: redis-server --appendonly yes
 
-  auth_backend:
-    container_name: auth_service
+
+  django_app:
+    container_name: django_app
     build:
-      context: ./services/auth_service
+      context: .
       dockerfile: Dockerfile
-    entrypoint: "/app/entrypoint.sh"
+    entrypoint: "/app/entrypoints/entrypoint.sh"
     environment:
       - ENV=.env
+      # - DATABASE_NAME=${DATABASE_NAME}
+      # - DATABASE_USER=${DATABASE_USER}
+      # - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      # - DATABASE_PORT=${DATABASE_PORT}
+      # - CELERY_BROKER_URL=${CELERY_BROKER_URL}
+      # - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
     ports:
       - "3000:80"
     depends_on:
-      - auth_postgresdb
-      - auth_redis
+      - postgresdb
+      - redis
     networks:
       - default
 
-  auth_celery_worker:
+  celery_worker:
     build:
-      context: ./services/auth_service
+      context: .
       dockerfile: Dockerfile
-    command: celery -A bonyanAuthService worker --loglevel=info
+    command: celery -A bonyanProject worker --loglevel=info
     environment:
       - ENV=.env
-      - CELERY_BROKER_URL=${CELERY_BROKER_URL}
-      - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
+      # - CELERY_BROKER_URL=${CELERY_BROKER_URL}
+      # - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
     depends_on:
-      - auth_backend
-      - auth_redis
+      - django_app
+      - redis
     networks:
       - default
 
 volumes:
   postgres_data:
     name: postgres_data
+  redis_data:
+    name: redis_data
 
 networks:
   default:

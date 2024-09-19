@@ -10,7 +10,7 @@ def account_activation_view(request):
         return redirect('dashboard')  # Replace 'dashboard' with the actual name of your dashboard URL pattern
     return render(request, 'account_activation.html')
 
-def activated_view(request):
+def activated_view(request, token):
     if request.user.is_authenticated:
         return redirect('dashboard')
     return render(request, 'account_activated.html')

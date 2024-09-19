@@ -6,6 +6,7 @@ set -e
 # Run database migrations
 python manage.py makemigrations
 python manage.py migrate
+python manage.py setup_quiz_permissions
 
 # Collect static files (if applicable)
 python manage.py collectstatic --noinput

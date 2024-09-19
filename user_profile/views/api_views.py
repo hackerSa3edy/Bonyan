@@ -37,7 +37,7 @@ class UserActivationView(generics.GenericAPIView):
             if activation_token.token_expiry < timezone.now():
                 activation_token.delete()
                 user.delete()
-                return Response({"detail": "Activation token has expired. Register again."}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"detail": "Activation token has expired. Register again."}, status=status.HTTP_410_GONE)
             if not user.is_active:
                 user.is_active = True
                 user.save()
@@ -47,7 +47,7 @@ class UserActivationView(generics.GenericAPIView):
 
                 return Response({"detail": "Account activated successfully."}, status=status.HTTP_200_OK)
             else:
-                return Response({"detail": "Account is already activated."}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"detail": "Account is already activated."}, status=status.HTTP_409_CONFLICT)
         except ActivationToken.DoesNotExist:
             return Response({"detail": "Invalid activation token."}, status=status.HTTP_400_BAD_REQUEST)
 

@@ -65,27 +65,36 @@ $(document).ready(function() {
     // }
 
     // Handle form submission
-    $('#login-form').on('submit', function(e) {
+    document.getElementById('login-form').addEventListener('submit', function(e) {
         e.preventDefault();
         
-        var email = $('#email').val();
-        var password = $('#password').val();
-
-        $.ajax({
-            url: '/api/auth/token/',
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+    
+        fetch('/api/auth/token/', {
             method: 'POST',
-            data: JSON.stringify({ email: email, password: password }),
-            contentType: 'application/json',
-            dataType: 'json'
-        }).done(function(data) {
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': 'application/json',
+            },
+            body: JSON.stringify({ email: email, password: password })
+        })
+        .then(response => {
+            if (!response.ok) {
+                if (response.status === 401) {
+                    showError('Invalid email or password. Please try again.');
+                } else {
+                    showError('An error occurred. Please try again later.');
+                }
+            }
+            return response.json();
+        })
+        .then(data => {
             storeTokens(data.access, data.refresh);
             window.location.href = '/dashboard';
-        }).fail(function(jqXHR) {
-            if (jqXHR.status === 401) {
-                showError('Invalid email or password. Please try again.');
-            } else {
-                showError('An error occurred. Please try again later.');
-            }
+        })
+        .catch(error => {
+            showError(error.message);
         });
     });
 

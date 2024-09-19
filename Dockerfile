@@ -22,4 +22,4 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # Run server and Worker
-RUN chmod +x /app/entrypoint.sh
+RUN chmod +x /app/entrypoints/entrypoint.sh

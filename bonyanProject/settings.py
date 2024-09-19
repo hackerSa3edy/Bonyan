@@ -87,6 +87,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# settings.py
+SESSION_COOKIE_PATH = '/admin/'  # This limits the session to the admin site
+
+
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         config('DEFAULT_RENDERER_CLASSES', default='rest_framework.renderers.JSONRenderer'),
