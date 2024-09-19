@@ -1,6 +1,6 @@
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
-from ..models import Quiz, QuizAssignment
+from quiz_management.models import Quiz, QuizAssignment
 from question_management.models import Question
 from quiz_participation.models import QuizAttempt, UserAnswer
 
@@ -8,6 +8,7 @@ def create_quiz_permissions():
     # Create groups
     creator_group, _ = Group.objects.get_or_create(name='Quiz Creator')
     resolver_group, _ = Group.objects.get_or_create(name='Quiz Resolver')
+    admin_group, _ = Group.objects.get_or_create(name='Admin')
 
     # Define permissions for Quiz Creator
     quiz_content_type = ContentType.objects.get_for_model(Quiz)
@@ -36,6 +37,13 @@ def create_quiz_permissions():
         Permission.objects.get_or_create(codename='submit_answer', name='Can submit answer', content_type=user_answer_content_type)[0],
     ]
 
+    # Define permissions for Quiz Admin
+    admin_permissions = creator_permissions + resolver_permissions + [
+        Permission.objects.get_or_create(codename='manage_users', name='Can manage users', content_type=ContentType.objects.get_for_model(Group))[0],
+        Permission.objects.get_or_create(codename='view_reports', name='Can view reports', content_type=quiz_content_type)[0],
+    ]
+
     # Assign permissions to groups
     creator_group.permissions.set(creator_permissions)
     resolver_group.permissions.set(resolver_permissions)
+    admin_group.permissions.set(admin_permissions)
