@@ -12,7 +12,7 @@
             font-family: 'Roboto', sans-serif;
         }
         .bg-blur {
-            background-image: url("{% static  'assets/login_background.jpg' %}");
+            background-image: url("{{ frontend_url }}{% static 'assets/background.jpg' %}");
             background-size: cover;
             background-position: center;
             filter: blur(8px);
@@ -28,13 +28,13 @@
     <div class="bg-white p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-md text-center relative z-10">
         <h1 class="text-2xl sm:text-3xl font-bold mb-4">Account Activated</h1>
         <div class="mb-6">
-            <img src="{% static 'assets/acc_activated.png' %}" alt="User icon with a checkmark" class="mx-auto w-20 h-20 sm:w-24 sm:h-24" />
+            <img src="{{ frontend_url }}{% static 'assets/acc_activated.png' %}" alt="User icon with a checkmark" class="mx-auto w-20 h-20 sm:w-24 sm:h-24" />
         </div>
         <p class="text-lg font-bold mb-2">Hello {{ user_fname }},</p>
         <p class="text-gray-600 mb-6 text-sm sm:text-base">
             Thank you, your email has been verified. Your account is now active. Please use the link below to login to your account.
         </p>
-        <a href="{{ login_url }}" class="bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-white py-2 px-4 rounded-full font-bold inline-block">
+        <a href="{{ frontend_url }}{{ url 'authentication-web:login_view' }}" class="bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-white py-2 px-4 rounded-full font-bold inline-block">
             LOGIN TO YOUR ACCOUNT
         </a>
         <div class="mt-8 text-gray-500 text-xs sm:text-sm">

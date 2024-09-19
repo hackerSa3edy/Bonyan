@@ -1,14 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+    <script src="{% static 'scripts/register.js' %}"></script>
     <style>
         .bg-blur {
-            background-image: url('../statics/assets/login_background.jpg');
+            background-image: url("{% static 'assets/background.jpg' %}");
             background-size: cover;
             background-position: center;
             filter: blur(8px);
@@ -18,9 +21,11 @@
             z-index: -1;
         }
         .image-container {
-            background-image: url('https://oaidalleapiprodscus.blob.core.windows.net/private/org-LmQ09WWGIGwOeeA4ArnRw0x5/user-uJPET5fjNenSso8wCETWVNOp/img-gtsyUGwcdGukgLURDaAIjkFa.png?st=2024-09-14T07%3A48%3A01Z&se=2024-09-14T09%3A48%3A01Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-09-13T23%3A13%3A01Z&ske=2024-09-14T23%3A13%3A01Z&sks=b&skv=2024-08-04&sig=rsYHkhZb4l61/nVwuSCN0DbFQCYMVwKQ8eIOCSd4Yqk%3D');
+            background-image: url("{% static 'assets/women-checking-list.jpg' %}");
             background-size: cover;
             background-position: center;
+            /* opacity: 0.65; */
+            /* filter: blur(2px); */
         }
         .select-wrapper {
             position: relative;
@@ -33,6 +38,12 @@
             transform: translateY(-50%);
             pointer-events: none;
         }
+        .form-step {
+            display: none;
+        }
+        .form-step.active {
+            display: block;
+        }
     </style>
 </head>
 <body class="bg-gray-100 font-roboto">
@@ -40,61 +51,71 @@
     
     <div class="flex flex-col lg:flex-row h-screen">
         <!-- Registration Form Container -->
-        <div class="w-full lg:w-2/3 bg-white bg-opacity-90 p-4 sm:p-6 md:p-8 flex flex-col justify-between overflow-y-auto">
+        <div class="w-full lg:w-2/3 bg-white bg-opacity-45 p-4 flex flex-col justify-between overflow-y-auto">
             <!-- Logo -->
-            <div class="flex items-center mb-4">
-                <img src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-LmQ09WWGIGwOeeA4ArnRw0x5/user-uJPET5fjNenSso8wCETWVNOp/img-jOW1efAYVG81tsTWSfBWsDXT.png?st=2024-09-14T01%3A18%3A02Z&se=2024-09-14T03%3A18%3A02Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-09-13T23%3A13%3A14Z&ske=2024-09-14T23%3A13%3A14Z&sks=b&skv=2024-08-04&sig=0Ilt2iVFDjYgwwDZOvf0oHtgXYW5EQ9IUmKVZHhLCOg%3D" alt="Bonyan logo" class="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 mr-2">
-                <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-600">Bonyan</h1>
+            <div class="flex items-center mb-2">
+                <img src="{% static 'assets/Bonyan-text-logo.png' %}" alt="Bonyan logo" class="h-8 w-auto">
             </div>
 
             <div class="flex-grow flex flex-col justify-center">
-                <h2 class="text-2xl sm:text-3xl font-bold mb-2 text-center text-blue-600">Join Our Family</h2>
-                <p class="text-gray-600 mb-4 sm:mb-6 text-center">Please fill in the details below</p>
+                <h2 class="text-xl sm:text-2xl font-bold mb-1 text-center text-blue-600">Join Our Family</h2>
+                <p class="text-gray-600 mb-2 sm:mb-4 text-center text-sm">Please fill in the details below</p>
+
+                <!-- Error Messages Container -->
+                <div id="error-messages-container" class="fixed top-4 right-4 space-y-2 z-50"></div>
                 
-                <form class="w-full max-w-lg mx-auto">
-                    <div class="flex flex-wrap -mx-3 mb-4">
-                        <div class="w-full md:w-1/2 px-3 mb-4 md:mb-0">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="first-name">First Name</label>
-                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="first-name" type="text" placeholder="Enter your first name">
+                <form class="w-full max-w-md mx-auto" id="registrationForm">
+                    <div class="form-step active" id="step1">
+                        <div class="flex flex-wrap -mx-2 mb-3">
+                            <div class="w-full md:w-1/2 px-2 mb-3 md:mb-0">
+                                <label class="block text-gray-700 text-xs font-bold mb-1" for="first-name">First Name</label>
+                                <input class="shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 text-sm leading-tight focus:outline-none focus:shadow-outline" id="first-name" type="text" placeholder="First name">
+                            </div>
+                            <div class="w-full md:w-1/2 px-2">
+                                <label class="block text-gray-700 text-xs font-bold mb-1" for="second-name">Second Name</label>
+                                <input class="shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 text-sm leading-tight focus:outline-none focus:shadow-outline" id="second-name" type="text" placeholder="Second name">
+                            </div>
                         </div>
-                        <div class="w-full md:w-1/2 px-3">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="second-name">Second Name</label>
-                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="second-name" type="text" placeholder="Enter your second name">
+                        <div class="mb-3">
+                            <label class="block text-gray-700 text-xs font-bold mb-1" for="email">Email Address</label>
+                            <input class="shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 text-sm leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Email">
                         </div>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email Address</label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Enter your email">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password</label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Enter your password">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="retype-password">Retype Password</label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="retype-password" type="password" placeholder="Retype your password">
-                    </div>
-                    <div class="mb-6">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="role">Role</label>
-                        <div class="select-wrapper">
-                            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-8" id="role">
-                                <option>Quiz Creator</option>
-                                <option>Quiz Solver</option>
-                            </select>
+                        <div class="flex justify-end">
+                            <button type="button" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-sm focus:outline-none focus:shadow-outline transition duration-300" onclick="nextStep(1)">Next</button>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between mb-4">
-                        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300" type="button">
-                            Register
-                        </button>
+
+                    <div class="form-step" id="step2">
+                        <div class="mb-3">
+                            <label class="block text-gray-700 text-xs font-bold mb-1" for="password">Password</label>
+                            <input class="shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 text-sm leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Password">
+                        </div>
+                        <div class="mb-3">
+                            <label class="block text-gray-700 text-xs font-bold mb-1" for="retype-password">Retype Password</label>
+                            <input class="shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 text-sm leading-tight focus:outline-none focus:shadow-outline" id="retype-password" type="password" placeholder="Retype password">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-xs font-bold mb-1" for="role">Role</label>
+                            <div class="select-wrapper">
+                                <select class="shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 text-sm leading-tight focus:outline-none focus:shadow-outline pr-8" id="role">
+                                    <option value="" disabled selected>Select your role</option>
+                                    <option value="creator">Quiz Creator</option>
+                                    <option value="resolver">Quiz Solver</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex justify-between">
+                            <button type="button" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 rounded text-sm focus:outline-none focus:shadow-outline transition duration-300" onclick="prevStep(2)">Previous</button>
+                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-sm focus:outline-none focus:shadow-outline transition duration-300">Register</button>
+                        </div>
                     </div>
                 </form>
             </div>
 
             <div class="text-center mt-4">
-                <p class="text-gray-600">
+                <p class="text-gray-800 text-md font-semibold">
                     Already have an account? 
-                    <a href="#" class="text-blue-500 hover:text-blue-600 transition duration-300">Sign In</a>
+                    <a href="{% url 'authentication-web:login' %}" class="text-blue-500 hover:text-blue-600 hover:underline transition duration-300 font-bold">Sign In</a>
                 </p>
             </div>
         </div>

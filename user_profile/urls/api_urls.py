@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import UserRegisterView, UserActivationView, UserProfileView
+from user_profile.views import UserRegisterView, UserActivationView, UserProfileView
 
-app_name = 'user_profile'  # Namespace for the app
+app_name = 'user_profile-API'  # Namespace for the app
 
 urlpatterns = [
     # URL pattern for user registration

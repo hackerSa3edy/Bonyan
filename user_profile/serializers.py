@@ -1,5 +1,9 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
+from quiz_management.models import Quiz
+from quiz_participation.models import QuizAttempt
 
 User = get_user_model()
 
@@ -32,6 +36,18 @@ class UserSerializer(serializers.ModelSerializer):
             avatar_url=validated_data.get('avatar_url', ''),
             role=validated_data['role']
         )
+
+        # Assign permissions based on role
+        if role == 'admin':
+            admin_group = Group.objects.get(name='Admin')
+            user.groups.add(admin_group)
+        elif role == 'creator':
+            creator_group = Group.objects.get(name='Quiz Creator')
+            user.groups.add(creator_group)
+        elif role == 'resolver':
+            participant_group = Group.objects.get(name='Quiz Resolver')
+            user.groups.add(participant_group)
+
         return user
     
     def update(self, instance, validated_data):

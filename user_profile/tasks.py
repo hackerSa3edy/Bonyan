@@ -4,7 +4,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils import timezone
-from .models import ActivationToken
+from user_profile.models import ActivationToken
 
 @shared_task
 def send_activation_email(user_fname, user_email, activation_link):
@@ -13,6 +13,7 @@ def send_activation_email(user_fname, user_email, activation_link):
     html_content = render_to_string('activation_email.html', {
         'activation_link': activation_link,
         'user_fname': user_fname,
+        'frontend_url': settings.FRONTEND_URL,
     })
     text_content = strip_tags(html_content)
 
@@ -54,6 +55,7 @@ def send_account_activated_email(user_fname, user_email):
     html_content = render_to_string('activated_email.html', {
         'user_fname': user_fname,
         'login_url': f'{settings.FRONTEND_URL}/login',
+        'frontend_url': settings.FRONTEND_URL,
     })
     
     # Create the plain text content

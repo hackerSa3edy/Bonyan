@@ -2,10 +2,10 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth import get_user_model
-from .tasks import send_activation_email, delete_user_and_token, send_account_activated_email
+from user_profile.tasks import send_activation_email, delete_user_and_token, send_account_activated_email
 from django.conf import settings
-from .serializers import UserSerializer
-from .models import ActivationToken
+from user_profile.serializers import UserSerializer
+from user_profile.models import ActivationToken
 from django.utils import timezone
 
 User = get_user_model()

@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .bg-blur {
-            background-image: url("{% static  'assets/login_background.jpg' %}");
+            background-image: url("{{ frontend_url }}{% static 'assets/background.jpg' %}");
             background-size: cover;
             background-position: center;
             filter: blur(8px);
@@ -22,7 +22,7 @@
     <div class="bg-blur"></div>
     <div class="bg-white bg-opacity-80 rounded-lg shadow-lg w-full max-w-md mx-auto overflow-hidden">
         <div class="h-auto overflow-hidden">
-            <img alt="Illustration of a handshake with clouds in the background" class="w-full h-full object-cover" src="{% static 'assets/cropped-welcome.jpg' %}" />
+            <img alt="Illustration of a handshake with clouds in the background" class="w-full h-full object-cover" src="{{ frontend_url }}{% static 'assets/cropped-welcome.jpg' %}" />
         </div>
         <div class="p-4 sm:p-6 md:p-8">
             <p class="text-gray-700 mb-6 text-sm sm:text-base">
