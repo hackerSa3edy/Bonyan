@@ -35,7 +35,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    entrypoint: "/app/entrypoints/entrypoint.sh"
     environment:
       - ENV=.env
       # - DATABASE_NAME=${DATABASE_NAME}
@@ -51,6 +50,7 @@ services:
       - redis
     networks:
       - default
+    command: bash /app/entrypoints/backend_entrypoint.sh
 
   celery_worker:
     build:
