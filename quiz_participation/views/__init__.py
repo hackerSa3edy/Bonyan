@@ -1,2 +1,3 @@
-from .quizAttempt_view import QuizAttemptViewSet
-from .userAnswer_view import UserAnswerViewSet
+from .api_views.quizAttempt_view import QuizAttemptViewSet
+from .api_views.userAnswer_view import UserAnswerViewSet
+from .web_views.user_dashboard import userDashboard_view

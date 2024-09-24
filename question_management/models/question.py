@@ -22,7 +22,6 @@ class Question(models.Model):
 
     options = models.JSONField()
     correct_answers = models.JSONField()
-    media_url = models.URLField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

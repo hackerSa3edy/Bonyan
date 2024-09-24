@@ -13,4 +13,4 @@ class QuizAssignment(models.Model):
         unique_together = ('quiz', 'user')
 
     def __str__(self):
-        return f"{self.quiz.title} assigned to {self.user.username}"
+        return f"{self.quiz.title} assigned to {self.user.email}"

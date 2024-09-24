@@ -67,11 +67,11 @@
             <div id="sidebar" class="w-64 bg-white shadow-md fixed top-16 lg:top-24 left-0 h-full z-10 overflow-y-auto transition-transform duration-300 ease-in-out sidebar-closed lg:sidebar-open">
                 <div class="p-6">
                     <nav class="mt-6">
-                        <a class="flex items-center p-2 text-gray-700 hover:bg-gray-200 rounded-md" href="#">
+                        <a class="flex items-center p-2 text-gray-700 hover:bg-gray-200 rounded-md" href="{% url 'quiz_participation-web:dashboard' %}">
                             <i class="fas fa-tachometer-alt mr-3"></i>
                             <span>Dashboard</span>
                         </a>
-                        <a class="flex items-center p-2 text-gray-700 hover:bg-gray-200 rounded-md bg-gray-200" href="#">
+                        <a class="flex items-center p-2 text-gray-700 hover:bg-gray-200 rounded-md bg-gray-200" href="{% url 'user_profile-web:profile' %}">
                             <i class="fas fa-cog mr-3"></i>
                             <span>Settings</span>
                         </a>

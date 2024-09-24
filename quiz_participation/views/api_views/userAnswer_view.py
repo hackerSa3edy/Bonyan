@@ -1,6 +1,6 @@
 from rest_framework import viewsets, permissions
-from ..models import UserAnswer
-from ..serializers import UserAnswerSerializer
+from quiz_participation.models import UserAnswer
+from quiz_participation.serializers import UserAnswerSerializer
 
 class UserAnswerViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = UserAnswer.objects.all()

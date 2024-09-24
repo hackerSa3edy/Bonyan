@@ -62,6 +62,13 @@ class UserSerializer(serializers.ModelSerializer):
                 fields[field_name].required = False
         return fields
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        request = self.context.get("request")
+        if request and request.method in ["GET", "POST"]:
+            representation['avatar'] = instance.avatar.url if instance.avatar else None
+        return representation
+
 class UserAvatarSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

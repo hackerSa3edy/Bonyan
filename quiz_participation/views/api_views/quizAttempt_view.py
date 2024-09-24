@@ -3,8 +3,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.utils import timezone
 from django.db.models import Sum
-from ..models import QuizAttempt, UserAnswer
-from ..serializers import QuizAttemptSerializer, UserAnswerSerializer, StartQuizSerializer, SubmitAnswerSerializer
+from quiz_participation.models import QuizAttempt, UserAnswer
+from quiz_participation.serializers import QuizAttemptSerializer, UserAnswerSerializer, StartQuizSerializer, SubmitAnswerSerializer
 from quiz_management.models import Quiz
 from question_management.models import Question
 

@@ -23,14 +23,16 @@ urlpatterns = [
     # URL pattern for API views
     path('admin/', admin.site.urls),
     path('api/auth/', include('authentication.urls.api_urls')),
-    path('api/', include('question_management.urls')),
+    path('api/', include('question_management.urls.api_urls')),
     path('api/', include('quiz_management.urls')),
-    path('api/', include('quiz_participation.urls')),
+    path('api/', include('quiz_participation.urls.api_urls')),
     path('api/', include('user_profile.urls.api_urls')),
 
     # URL pattern for the web views
     path('', include('authentication.urls.web_urls')),
     path('', include('user_profile.urls.web_urls')),
+    path('', include('quiz_participation.urls.web_urls')),
+    path('', include('question_management.urls.web_urls')),
 ]
 
 if settings.DEBUG:
@@ -48,4 +50,4 @@ def print_pattern(pattern, prefix=''):
     else:
         print(f'{prefix}{pattern.pattern.regex.pattern}')
 
-# handle()
+handle()

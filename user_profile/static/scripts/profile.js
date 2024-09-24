@@ -79,18 +79,7 @@ $(document).ready(function() {
         $('#profile-tab').addClass('text-gray-700').removeClass('text-blue-600');
     });
 
-    // Function to fetch and set the avatar URL
-    function fetchAvatarUrl() {
-        return authenticatedRequest('/api/user/avatar/', 'GET')
-            .then(data => {
-                return data.avatar || null;
-            })
-            .catch(() => {
-                showMessage('Failed to fetch avatar. Please try again.', 'red');
-                return null;
-            });
-    }
-
+    // Function to set the avatar URL
     function setAvatarUrl(avatarUrl) {
         if (avatarUrl) {
             $('.profile-pic').attr('src', avatarUrl).removeClass('hidden');
@@ -155,14 +144,18 @@ $(document).ready(function() {
             $('#bio').val(data.bio);
             $('#role').val(data.role);
             $('#header-username').text(data.first_name + ' ' + data.last_name);
+            if (data.avatar) {
+                $('.profile-pic').attr('src', data.avatar).removeClass('hidden');
+                $('.avatar-initials').addClass('hidden');
+            } else {
+                $('.profile-pic').addClass('hidden');
+                $('.avatar-initials').removeClass('hidden');
+            }
             $('.avatar-initials').text(data.first_name.charAt(0) + data.last_name.charAt(0));
         })
         .catch(() => {
             showMessage('Failed to fetch profile data. Please refresh the page.', 'red');
         });
-
-    // Fetch and set the avatar URL
-    fetchAvatarUrl().then(setAvatarUrl);
 
     // Profile form submission
     $('#profile-settings-form').submit(function(e) {
@@ -261,7 +254,7 @@ $(document).ready(function() {
     });
 
     // Logout functionality
-    $('a:contains("Log out")').click(function(e) {
+    $('#sidebar a:contains("Log out")').click(function(e) {
         e.preventDefault();
         authenticatedRequest('/api/auth/logout/', 'POST', { refresh: getRefreshToken() })
             .then(() => {
