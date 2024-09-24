@@ -1,8 +1,6 @@
 from django.db import models
-from user_profile.models.profile import User
+from user_profile.models.profiles.user import User
 import uuid
-from django.utils import timezone
-from datetime import timedelta
 
 class ActivationToken(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

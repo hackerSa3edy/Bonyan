@@ -23,12 +23,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'role']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'role', 'email', 'password']
 
     def __str__(self):
         return self.email
 
     class Meta:
         swappable = 'AUTH_USER_MODEL'
-        verbose_name = 'user'
-        verbose_name_plural = 'users'

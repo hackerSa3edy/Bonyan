@@ -1,2 +1,2 @@
 from user_profile.models.activation import ActivationToken
-from user_profile.models.profile import User
+from user_profile.models.profiles import Student, Instructor, User
