@@ -14,40 +14,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
-from django.urls import path, include
 from django.conf import settings
+from django.urls import path, include
 from django.conf.urls.static import static
 
 urlpatterns = [
-    # URL pattern for API views
-    path('admin/', admin.site.urls),
-    path('api/auth/', include('authentication.urls.api_urls')),
-    path('api/', include('question_management.urls.api_urls')),
-    path('api/', include('quiz_management.urls')),
-    path('api/', include('quiz_participation.urls.api_urls')),
-    path('api/', include('user_profile.urls.api_urls')),
-
-    # URL pattern for the web views
-    path('', include('authentication.urls.web_urls')),
-    path('', include('user_profile.urls.web_urls')),
-    path('', include('quiz_participation.urls.web_urls')),
-    path('', include('question_management.urls.web_urls')),
+    path("admin/", admin.site.urls),
+    path("api/", include("api.urls", namespace="api")),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
-def handle():
-    for pattern in urlpatterns[1:]:
-        print_pattern(pattern)
-
-def print_pattern(pattern, prefix=''):
-    if hasattr(pattern, 'url_patterns'):
-        for sub_pattern in pattern.url_patterns:
-            print_pattern(sub_pattern, prefix + pattern.pattern.regex.pattern)
-    else:
-        print(f'{prefix}{pattern.pattern.regex.pattern}')
-
-handle()
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

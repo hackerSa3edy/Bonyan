@@ -95,8 +95,8 @@ SESSION_COOKIE_PATH = '/admin/'  # This limits the session to the admin site
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
-        config('DEFAULT_RENDERER_CLASSES', default='rest_framework.renderers.JSONRenderer'),
         'rest_framework.renderers.JSONRenderer',
+        config('DEFAULT_RENDERER_CLASSES', default='rest_framework.renderers.JSONRenderer'),
         ),
 
     'DEFAULT_PARSER_CLASSES': (
@@ -113,6 +113,9 @@ REST_FRAMEWORK = {
 
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 10,
+
+    # Filtering
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
 }
 
 SIMPLE_JWT = {
