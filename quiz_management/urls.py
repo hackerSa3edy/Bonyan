@@ -11,5 +11,5 @@ app_name = 'quiz_management'  # Namespace for the app
 # Manually add the URLs from the router, excluding the root view
 urlpatterns = [
     # Include the router URLs under the 'quizzes/' path
-    path('quizzes/', include((router.urls, 'quizzes'), namespace='quizzes')),
+    path('', include((router.urls, 'quizzes'), namespace='quizzes')),
 ]
