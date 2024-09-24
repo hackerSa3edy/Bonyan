@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     # URL pattern for API views
@@ -30,6 +32,9 @@ urlpatterns = [
     path('', include('authentication.urls.web_urls')),
     path('', include('user_profile.urls.web_urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 def handle():

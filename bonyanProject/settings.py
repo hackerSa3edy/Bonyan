@@ -11,25 +11,26 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-from decouple import RepositoryEnv, Config, Csv
+from decouple import config
 from datetime import timedelta
 import os
 
 
-env_file = os.environ.get('ENV', None)
+# env_file = os.getenv('ENV', None)
 
-if not env_file:
-    raise ValueError('ENV variable is not set or is not valid. (Please provide a valid env file path)')
+# if not env_file:
+#     raise ValueError('ENV variable is not set or is not valid. (Please provide a valid env file path)')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-env_file = os.path.join(BASE_DIR, env_file)
+# env_file = os.path.join(BASE_DIR, env_file)
 
-# Check if the .env file exists
-if not os.path.exists(env_file):
-    raise FileNotFoundError(f".env file not found at {env_file}")
+# # Check if the .env file exists
+# if not os.path.exists(env_file):
+#     raise FileNotFoundError(f".env file not found at {env_file}")
 
-config = Config(RepositoryEnv(env_file, encoding='utf-8'))
+# config = Config(RepositoryEnv(env_file, encoding='utf-8'))
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -55,6 +56,7 @@ THIRD_PARTY_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 PROJECT_APPS = [
@@ -111,10 +113,10 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFRESH_TOKENS": False,
-    "BLACKLIST_AFTER_ROTATION": False,
+    "BLACKLIST_AFTER_ROTATION": True,
     "UPDATE_LAST_LOGIN": False,
 
     "ALGORITHM": "HS256",
@@ -218,8 +220,8 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 EMAIL_HOST = config('EMAIL_HOST', default=None)
 EMAIL_PORT = config('EMAIL_PORT', cast=int, default=None)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default=None)
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default=None)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default=None, cast=str)
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default=None, cast=str)
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=False, cast=bool)
 EMAIL_USE_SSL = config('EMAIL_USE_SSL', default=False, cast=bool)
 # EMAIL_TIMEOUT = config('EMAIL_TIMEOUT', cast=int, default=None)
@@ -250,6 +252,8 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Default primary key field type
@@ -268,4 +272,4 @@ CELERY_TIMEZONE = 'UTC'
 if CELERY_BROKER_URL is None:
     raise ValueError('CELERY_BROKER_URL is not set.')
 if CELERY_RESULT_BACKEND is None:
-    raise ValueError('CELERY_RESULT_BACKEND is not set.')  
+    raise ValueError('CELERY_RESULT_BACKEND is not set.')

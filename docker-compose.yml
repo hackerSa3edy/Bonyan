@@ -35,8 +35,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    environment:
-      - ENV=.env
+    # environment:
+      # - ENV=.env
       # - DATABASE_NAME=${DATABASE_NAME}
       # - DATABASE_USER=${DATABASE_USER}
       # - DATABASE_PASSWORD=${DATABASE_PASSWORD}
@@ -51,14 +51,16 @@ services:
     networks:
       - default
     command: bash /app/entrypoints/backend_entrypoint.sh
+    volumes:
+      - django_data:/app/media
 
   celery_worker:
     build:
       context: .
       dockerfile: Dockerfile
     command: celery -A bonyanProject worker --loglevel=info
-    environment:
-      - ENV=.env
+    # environment:
+      # - ENV=.env
       # - CELERY_BROKER_URL=${CELERY_BROKER_URL}
       # - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
     depends_on:
@@ -72,6 +74,8 @@ volumes:
     name: postgres_data
   redis_data:
     name: redis_data
+  django_data:
+    name: django_data
 
 networks:
   default:

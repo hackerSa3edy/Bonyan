@@ -9,9 +9,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(unique=True, max_length=100)
     first_name = models.CharField(max_length=50, null=True, blank=False)
-    second_name = models.CharField(max_length=50, null=True, blank=False)
+    last_name = models.CharField(max_length=50, null=True, blank=False)
     bio = models.TextField(null=True, blank=True)
-    avatar_url = models.URLField(max_length=500, null=True, blank=True)
+    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
     role = models.CharField(max_length=10, choices=[('creator', 'Creator'), ('resolver', 'Resolver'), ('admin', 'Admin')], null=False, blank=False)
     # is_anonymous = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
@@ -23,7 +23,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'second_name', 'role']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'role']
 
     def __str__(self):
         return self.email

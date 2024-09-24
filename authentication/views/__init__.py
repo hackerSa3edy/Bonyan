@@ -1,2 +1,2 @@
-from .api_view import CustomTokenObtainPairView
+from .api_view import CustomTokenObtainPairView, LogoutView
 from .web_view import login_view
