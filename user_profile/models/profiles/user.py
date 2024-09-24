@@ -12,7 +12,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=50, null=True, blank=False)
     bio = models.TextField(null=True, blank=True)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
-    role = models.CharField(max_length=10, choices=[('creator', 'Creator'), ('resolver', 'Resolver'), ('admin', 'Admin')], null=False, blank=False)
+    role = models.CharField(max_length=10, choices=[('instructor', 'Instructor'), ('student', 'Student'), ('admin', 'Admin')], null=False, blank=False)
     # is_anonymous = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)

@@ -1,0 +1,2 @@
+from .instructor import InstructorListCreate, InstructorRetrieveUpdateDestroy
+from .student import StudentListCreate, StudentRetrieveUpdateDestroy
