@@ -34,7 +34,7 @@
         <p class="text-gray-600 mb-6 text-sm sm:text-base">
             Thank you, your email has been verified. Your account is now active. Please use the link below to login to your account.
         </p>
-        <a href="{{ frontend_url }}{{ url 'authentication-web:login_view' }}" class="bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-white py-2 px-4 rounded-full font-bold inline-block">
+        <a href="{{ frontend_url }}{% url 'authentication-web:login' %}" class="bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-white py-2 px-4 rounded-full font-bold inline-block">
             LOGIN TO YOUR ACCOUNT
         </a>
         <div class="mt-8 text-gray-500 text-xs sm:text-sm">

@@ -35,14 +35,14 @@ $(document).ready(function() {
         event.preventDefault();
         
         const firstName = $('#first-name').val().trim();
-        const secondName = $('#second-name').val().trim();
+        const lastName = $('#last-name').val().trim();
         const email = $('#email').val().trim();
         const password = $('#password').val();
         const retypePassword = $('#retype-password').val();
         const role = $('#role').val();
 
         // Validate form data
-        if (!firstName || !secondName) {
+        if (!firstName || !lastName) {
             showError('Please enter both first and second names.');
             return;
         }
@@ -70,7 +70,7 @@ $(document).ready(function() {
         // Prepare data for API request
         const data = {
             first_name: firstName,
-            last_name: secondName,
+            last_name: lastName,
             email: email,
             password: password,
             role: role
@@ -90,7 +90,10 @@ $(document).ready(function() {
                 // Redirect to activate route
                 window.location.href = '/activation';
             } else {
-                showError(response.error || 'Registration failed. Please try again.');
+                const errorData = await response.json();
+                for (const key in errorData) {
+                    showError(`${key}: ${errorData[key]}`);
+                }
             }
         } catch (error) {
             if (error.responseJSON && error.status === 400) {
@@ -108,10 +111,10 @@ $(document).ready(function() {
     function nextStep(currentStep) {
         if (currentStep === 1) {
             const firstName = $('#first-name').val().trim();
-            const secondName = $('#second-name').val().trim();
+            const lastName = $('#last-name').val().trim();
             const email = $('#email').val().trim();
 
-            if (!firstName || !secondName) {
+            if (!firstName || !lastName) {
                 showError('Please enter both first and second names.');
                 return;
             }

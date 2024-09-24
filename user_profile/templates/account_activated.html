@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+    <script src="{% static 'scripts/activate.js' %}"></script>
     <style>
         .bg-blur {
             background-image: url("{% static 'assets/welcome.jpg' %}");
@@ -28,29 +30,80 @@
             <div class="flex items-center mb-2">
                 <img src="{% static 'assets/Bonyan-text-logo.png' %}" alt="Bonyan logo" class="h-8 w-auto">
             </div>
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4">Account Activation</h1>
+            <h1 id="activation-title" class="text-2xl sm:text-3xl font-bold mb-4">Account Activation</h1>
             <div id="message-container" class="mb-6">
-                <div class="mb-6">
-                    <i class="fas fa-spinner fa-spin fa-3x text-blue-500"></i>
+                <!-- Loading message (initially visible) -->
+                <div id="loading-message">
+                    <div class="mb-6">
+                        <i class="fas fa-spinner fa-spin fa-3x text-blue-500"></i>
+                    </div>
+                    <p class="text-gray-600 mb-6 text-sm sm:text-base">
+                        Please wait while we verify your account...
+                    </p>
                 </div>
-                <p class="text-gray-600 mb-6 text-sm sm:text-base">
-                    Please wait while we verify your account...
-                </p>
+
+                <!-- Success message (initially hidden) -->
+                <div id="success-message" style="display: none;">
+                    <div class="mb-6">
+                        <img src="{% static 'assets/acc_activated.png' %}" alt="User icon with a checkmark" class="mx-auto w-20 h-20 sm:w-24 sm:h-24" />
+                    </div>
+                    <p class="text-gray-600 mb-6 text-sm sm:text-base">
+                        Congratulations! Your account is now active and ready to go. Welcome to our community!
+                    </p>
+                    <a href="{% url 'authentication-web:login' %}" class="bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-white py-2 px-4 rounded-full font-bold inline-block">
+                        LOGIN TO YOUR ACCOUNT
+                    </a>
+                </div>
+
+                <!-- Already activated message (initially hidden) -->
+                <div id="already-activated-message" style="display: none;">
+                    <div class="mb-6">
+                        <img src="{% static 'assets/acc_activated.png' %}" alt="User icon with a checkmark" class="mx-auto w-20 h-20 sm:w-24 sm:h-24" />
+                    </div>
+                    <p class="text-gray-600 mb-6 text-sm sm:text-base">
+                        Good news! Your account is already active. No further action is needed.
+                    </p>
+                    <a href="{% url 'authentication-web:login' %}" class="bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-white py-2 px-4 rounded-full font-bold inline-block">
+                        LOGIN TO YOUR ACCOUNT
+                    </a>
+                </div>
+
+                <!-- Invalid token message (initially hidden) -->
+                <div id="invalid-message" style="display: none;">
+                    <div class="mb-6">
+                        <i class="fas fa-exclamation-triangle fa-3x text-yellow-500"></i>
+                    </div>
+                    <p class="text-gray-600 mb-6 text-sm sm:text-base">
+                        Oops! The activation token appears to be invalid. Please check your email for the correct link or contact support.
+                    </p>
+                    <a href="{% url 'user_profile-web:register' %}" class="bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-white py-2 px-4 rounded-full font-bold inline-block">
+                        REGISTER AGAIN
+                    </a>
+                </div>
+
+                <!-- Expired token message (initially hidden) -->
+                <div id="expired-message" style="display: none;">
+                    <div class="mb-6">
+                        <i class="fas fa-clock fa-3x text-red-500"></i>
+                    </div>
+                    <p class="text-gray-600 mb-6 text-sm sm:text-base">
+                        Sorry, your activation token has expired. Please register again to receive a new activation link.
+                    </p>
+                    <a href="{% url 'user_profile-web:register' %}" class="bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-white py-2 px-4 rounded-full font-bold inline-block">
+                        REGISTER AGAIN
+                    </a>
+                </div>
+
+                <!-- Error message (initially hidden) -->
+                <div id="error-message" style="display: none;">
+                    <div class="mb-6">
+                        <i class="fas fa-exclamation-circle fa-3x text-red-500"></i>
+                    </div>
+                    <p class="text-gray-600 mb-6 text-sm sm:text-base">
+                        An unexpected error occurred during account activation. Please try again later or contact support.
+                    </p>
+                </div>
             </div>
-            <!-- Logo -->
-            <!-- <div class="flex items-center mb-2">
-                <img src="{% static 'assets/Bonyan-text-logo.png' %}" alt="Bonyan logo" class="h-8 w-auto">
-            </div>
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4">Account Activated</h1>
-            <div class="mb-6">
-                <img src="{% static 'assets/acc_activated.png' %}" alt="User icon with a checkmark" class="mx-auto w-20 h-20 sm:w-24 sm:h-24" />
-            </div>
-            <p class="text-gray-600 mb-6 text-sm sm:text-base">
-                Thank you, your email has been verified. Your account is now active. Please use the link below to login to your account.
-            </p>
-            <a href="{% url 'authentication-web:login' %}" class="bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-white py-2 px-4 rounded-full font-bold inline-block">
-                LOGIN TO YOUR ACCOUNT
-            </a> -->
         </div>
     </div>
 </body>

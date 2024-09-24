@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS UserAuth.users
  second_name  varchar(50) NULL,
  bio          text NULL,
  avatar_url   varchar(500) NULL,
- role         enum('creator', 'resolver') NOT NULL,
+ role         enum('creator', 'resolver', 'admin') NOT NULL,
  created_at   timestamp with time zone NOT NULL,
  updated_at   timestamp with time zone NOT NULL,
  CONSTRAINT PK_1 PRIMARY KEY ( "id" ),

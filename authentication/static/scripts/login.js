@@ -75,23 +75,24 @@ $(document).ready(function() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'accept': 'application/json',
+                'Accept': 'application/json',
             },
             body: JSON.stringify({ email: email, password: password })
         })
         .then(response => {
             if (!response.ok) {
                 if (response.status === 401) {
-                    showError('Invalid email or password. Please try again.');
+                    throw new Error('Invalid email or password. Please try again.');
                 } else {
-                    showError('An error occurred. Please try again later.');
+                    throw new Error('An error occurred. Please try again later.');
                 }
             }
-            return response.json();
+            return response.json()
         })
         .then(data => {
             storeTokens(data.access, data.refresh);
             window.location.href = '/dashboard';
+            // console.log('Login successful:', data);
         })
         .catch(error => {
             showError(error.message);
