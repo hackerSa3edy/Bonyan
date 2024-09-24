@@ -1,1 +1,0 @@
-from quiz_management.permissions.quiz_permissions import QuizPermissionsMixin, QuizAttemptPermissionsMixin

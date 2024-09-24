@@ -1,2 +1,0 @@
-from quiz_management.models.quiz import Quiz
-from quiz_management.models.quiz_assignment import QuizAssignment
