@@ -6,17 +6,20 @@ $(document).ready(function () {
     return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
   }).join(''));
 
-  function fetchCourses (instructorId) {
-    $('#course-name').empty();
+  const userId = JSON.parse(jsonPayload).user_id;
+
+  let editMode = false;
+  let currentExamId = null;
+  let currentQuestionId = null;
+
+  $('#exams-list').empty();
+  function fetchCourses(instructorId) {
+    $('#course-name').empty().append('<option value="">Select a course</option>');
     $.ajax({
       url: `/api/levels/courses/?instructor=${instructorId}`,
       method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + token
-      },
+      headers: { Authorization: 'Bearer ' + token },
       success: function (data) {
-        // handle the data as needed
-        // assuming '#course-name' is the id of the select dropdown
         data.results.forEach(function (course) {
           const option = $('<option>').val(course.id).text(course.title);
           $('#course-name').append(option);
@@ -24,310 +27,356 @@ $(document).ready(function () {
       },
       error: function (error) {
         console.error('Error fetching courses:', error);
+        $('#exams-list').append('<p class="no-exams">No exams have been created yet.</p>'); // Update this line to add a class for styling
       }
     });
   }
 
-  let editMode = false;
-  let currentExamId = null;
-
-  function fetchExams (userId) {
-    $('.exams').empty();
+  function fetchExams(userId) {
+    $('#exams-list').empty();
     $.ajax({
       url: `/api/exams/?instructor_id=${userId}`,
       method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + token
-      },
+      headers: { Authorization: 'Bearer ' + token },
       success: function (data) {
         if (data.results.length === 0) {
-          $('.exams').append('<div class="exam" class="empty-exams">No exams have been created yet.</div>');
+          $('#exams-list').append('<p>No exams have been created yet.</p>');
         } else {
-          if ($('.exams').hasClass('empty-exams')) {
-            $('.exams').removeClass('empty-exams');
-          }
           data.results.forEach(function (exam) {
-            const examDiv = `
-              <div class="exam" exam_id="${exam.id}">
-                <div class="title">
-                  <h3>${exam.title}</h3>
-                  <p>${exam.course.title}</p>
-                </div>
-                <div class="score">
-                  <p>Exam Score</p>
-                  <p>${exam.exam_score}</p>
-                </div>
-                <div class="date">
-                  <p class="start">start : ${new Date(exam.start_date).toLocaleString('en-US', { timeZone: 'Africa/Cairo' })}</p>
-                  <p class="end">end : ${new Date(exam.end_date).toLocaleString('en-US', { timeZone: 'Africa/Cairo' })}</p>
-                </div>
-                <div class="ins">
-                  Ins / ${exam.instructor.first_name} ${exam.instructor.second_name}
-                </div>
-                <button type="button" class="edit_exam" exam_id="${exam.id}">Edit</button>
-                <button type="button" class="delete_exam" exam_id="${exam.id}">Delete</button>
-              </div>`;
-            $('.exams').append(examDiv);
-
-            $('.edit_exam').on('click', function () {
-              const examId = $(this).attr('exam_id');
-              console.log(examId);
-              currentExamId = examId;
-              editMode = true;
-
-              // Populate the form with the exam data
-              fetch(`/api/exams/${examId}`, {
-                headers: {
-                  Authorization: 'Bearer ' + token // replace 'token' with your actual token
-                }
-              })
-                .then(response => response.json())
-                .then(data => {
-                  const exam = data;
-                  $('#exam-title').val(exam.title);
-                  $('#course-name').val(exam.course.id);
-                  const cairoOffset = 3; // Cairo is UTC+2
-
-                  const startDate = new Date(exam.start_date);
-                  const startLocalDate = new Date(startDate.getTime() + cairoOffset * 60 * 60 * 1000);
-                  const startIsoDate = startLocalDate.toISOString().slice(0, 16);
-                  $('#start-date').val(startIsoDate);
-
-                  const endDate = new Date(exam.end_date);
-                  const endtLocalDate = new Date(endDate.getTime() + cairoOffset * 60 * 60 * 1000);
-                  const endtIsoDate = endtLocalDate.toISOString().slice(0, 16);
-                  $('#end-date').val(endtIsoDate);
-
-                  $('#exam-score').val(exam.exam_score);
-                }).catch(error => console.error('Error:', error));
-            });
-
-            $('.delete_exam').on('click', function () {
-              const examId = $(this).attr('exam_id');
-              $.ajax({
-                url: `/api/exams/${examId}/`,
-                method: 'DELETE',
-                headers: {
-                  Authorization: 'Bearer ' + token
-                },
-                success: function () {
-                  $(`.exam[exam_id="${examId}"]`).remove();
-                },
-                error: function (error) {
-                  console.error('Error deleting exam:', error);
-                }
-              });
-            });
+            appendExamToList(exam);
           });
         }
       },
       error: function (error) {
         console.error('Error fetching exams:', error);
-        $('.exams').append(`<div class="exam" class="error">Error: ${error.status} ${error.statusText}<br>Message: ${error.responseText}</div>`);
+        $('#exams-list').append(`<p class="text-red-500">Error: ${error.status} ${error.statusText}<br>Message: ${error.responseText}</p>`);
       }
     });
   }
 
-  const userId = JSON.parse(jsonPayload).user_id;
-  // const userId = 5;
+  function appendExamToList(exam) {
+    const examDiv = `
+      <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow" data-exam-id="${exam.id}">
+        <div class="flex justify-between items-start">
+          <div>
+            <h3 class="text-lg font-semibold">${exam.title}</h3>
+            <p class="text-sm text-gray-600">${exam.course.title}</p>
+          </div>
+          <div class="text-right">
+            <p class="text-sm font-semibold">Exam Score: ${exam.exam_score}</p>
+            <p class="text-xs text-gray-600">Start: ${formatDate(exam.start_date)}</p>
+            <p class="text-xs text-gray-600">End: ${formatDate(exam.end_date)}</p>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 mt-2">Instructor: ${exam.instructor.first_name} ${exam.instructor.second_name}</p>
+        <div class="mt-4 space-x-2">
+          <button class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600 transition-colors edit_exam">Edit</button>
+          <button class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600 transition-colors delete_exam">Delete</button>
+          <button class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600 transition-colors manage_questions">Manage Questions</button>
+        </div>
+      </div>`;
+    $('#exams-list').append(examDiv);
+  }
+
+  function formatDate(dateString) {
+    return new Date(dateString).toLocaleString('en-US', { 
+      timeZone: 'Africa/Cairo',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  }
+
+  function populateExamForm(exam) {
+    $('#exam-title').val(exam.title);
+    $('#course-name').val(exam.course.id);
+    $('#start-date').val(formatDateTimeLocal(exam.start_date));
+    $('#end-date').val(formatDateTimeLocal(exam.end_date));
+    $('#exam-score').val(exam.exam_score);
+  }
+
+  function formatDateTimeLocal(dateString) {
+    const date = new Date(dateString);
+    return date.toISOString().slice(0, 16);
+  }
+
+  function clearExamForm() {
+    $('#exam-form')[0].reset();
+    editMode = false;
+    currentExamId = null;
+  }
+
+  function showQuestionModal() {
+    $('#question-modal').removeClass('hidden').addClass('flex');
+  }
+
+  function hideQuestionModal() {
+    $('#question-modal').removeClass('flex').addClass('hidden');
+    clearQuestionForm();
+    currentQuestionPage = 1;
+  }
+
+  function clearQuestionForm() {
+    $('#question-form')[0].reset();
+    currentQuestionId = null;
+    $('#submit-question').text('Add Question');
+  }
+
+  function populateQuestionForm(question) {
+      clearQuestionForm();
+      $('#question').val(question.text);
+      currentQuestionId = question.id;
+      question.choices.forEach((choice, index) => {
+          const choiceInput = $(`#choice-${index + 1}`);
+          choiceInput.val(choice.text);
+          choiceInput.prop('checked', choice.is_correct);
+          choiceInput.attr('data-choice-id', choice.id); // Append data-choice-id attribute
+      });
+      $('#submit-question').text('Update Question');
+  }
+
+  function fetchQuestions(examId) {
+    $.ajax({
+      url: `/api/exams/questions/?exam_id=${examId}`,
+      method: 'GET',
+      headers: { Authorization: 'Bearer ' + token },
+      success: function(data) {
+        displayQuestions(data);
+      },
+      error: function(error) {
+        console.error('Error fetching questions:', error);
+      }
+    });
+  }
+
+  let currentQuestionPage = 1;
+  const questionsPerPage = 2;
+
+  function displayQuestions(questions) {
+      const questionList = $('#question-list');
+      questionList.empty();
+      const start = (currentQuestionPage - 1) * questionsPerPage;
+      const end = start + questionsPerPage;
+      const paginatedQuestions = questions.results.slice(start, end);
+
+      paginatedQuestions.forEach(function(question) {
+          const questionItem = `
+              <div class="border border-gray-200 rounded p-4 flex justify-between items-center" data-question-id="${question.id}">
+                  <p class="flex-1">${question.text}</p>
+                  <div>
+                      <button class="text-blue-500 hover:text-blue-700 mr-2 edit-question">
+                          <i class="fas fa-edit"></i> Edit
+                      </button>
+                      <button class="text-red-500 hover:text-red-700 delete-question">
+                          <i class="fas fa-trash-alt"></i> Delete
+                      </button>
+                  </div>
+              </div>
+          `;
+          questionList.append(questionItem);
+      });
+
+      $('#prev-question-page').prop('disabled', currentQuestionPage === 1);
+      $('#next-question-page').prop('disabled', end >= questions.results.length);
+      // Update question page info
+      $('#question-page-info').text(`Page ${currentQuestionPage} of ${Math.ceil(questions.results.length / questionsPerPage)}`);
+  }
+
+  $('#prev-question-page').click(function() {
+      if (currentQuestionPage > 1) {
+          currentQuestionPage--;
+          fetchQuestions(currentExamId);
+      }
+  });
+
+  $('#next-question-page').click(function() {
+      currentQuestionPage++;
+      fetchQuestions(currentExamId);
+  });
+
+  function saveQuestion() {
+      const questionData = {
+          exam: currentExamId,
+          text: $('#question').val(),
+      };
+
+      const choicesData = [1, 2, 3, 4]
+          .map(i => ({
+              id: $(`#choice-${i}`).attr('data-choice-id'), // Get the data-choice-id attribute value
+              question: currentQuestionId,
+              text: $(`#choice-${i}`).val(),
+              is_correct: $(`#correct-${i}`).is(':checked')
+          }))
+          .filter(choice => choice.text.trim() !== '');
+
+      const questionUrl = currentQuestionId ? `/api/exams/questions/${currentQuestionId}/` : '/api/exams/questions/';
+      const questionMethod = currentQuestionId ? 'PUT' : 'POST';
+
+      $.ajax({
+          url: questionUrl,
+          method: questionMethod,
+          headers: { Authorization: 'Bearer ' + token },
+          data: JSON.stringify(questionData),
+          contentType: 'application/json',
+          success: function(response) {
+              const questionId = response.id || currentQuestionId;
+              saveChoices(questionId, choicesData);
+          },
+          error: function(error) {
+              console.error('Error saving question:', error);
+          }
+      });
+  }
+  
+  function saveChoices(questionId, choicesData) {
+      choicesData.forEach(choice => {
+          const choiceUrl = choice.id ? `/api/exams/choices/${choice.id}/` : '/api/exams/choices/';
+          const choiceMethod = choice.id ? 'PUT' : 'POST';
+          choice.question = questionId;
+  
+          $.ajax({
+              url: choiceUrl,
+              method: choiceMethod,
+              headers: { Authorization: 'Bearer ' + token },
+              data: JSON.stringify(choice),
+              contentType: 'application/json',
+              success: function(response) {
+                  fetchQuestions(currentExamId);
+                  clearQuestionForm();
+              },
+              error: function(error) {
+                  console.error('Error saving choice:', error);
+              }
+          });
+      });
+  }
+
+  function deleteQuestion(questionId) {
+    if (confirm('Are you sure you want to delete this question?')) {
+      $.ajax({
+        url: `/api/exams/questions/${questionId}/`,
+        method: 'DELETE',
+        headers: { Authorization: 'Bearer ' + token },
+        success: function() {
+          fetchQuestions(currentExamId);
+        },
+        error: function(error) {
+          console.error('Error deleting question:', error);
+        }
+      });
+    }
+  }
+
+  // Event Listeners
+  $('#exams-list').on('click', '.manage_questions', function() {
+    currentExamId = $(this).closest('[data-exam-id]').data('exam-id');
+    fetchQuestions(currentExamId);
+    showQuestionModal();
+  });
+
+  $('#question-list').on('click', '.edit-question', function() {
+    const questionId = $(this).closest('[data-question-id]').data('question-id');
+    $.ajax({
+      url: `/api/exams/questions/${questionId}/`,
+      method: 'GET',
+      headers: { Authorization: 'Bearer ' + token },
+      success: function(question) {
+        populateQuestionForm(question);
+      },
+      error: function(error) {
+        console.error('Error fetching question details:', error);
+      }
+    });
+  });
+
+  $('#question-list').on('click', '.delete-question', function() {
+    const questionId = $(this).closest('[data-question-id]').data('question-id');
+    deleteQuestion(questionId);
+  });
+
+  $('#submit-question').click(function(e) {
+    e.preventDefault();
+    saveQuestion();
+  });
+
+  $('#next-question').click(function(e) {
+    e.preventDefault();
+    saveQuestion();
+    clearQuestionForm();
+  });
+
+  $('#close-question-form').click(hideQuestionModal);
+
   fetchExams(userId);
   fetchCourses(userId);
 
-  // Get the current date in ISO format
-  const today = new Date();
-  const formattedToday = today.toISOString().slice(0, 16);
+  const today = new Date().toISOString().slice(0, 16);
+  $('#start-date, #end-date').attr('min', today);
 
-  // Select the date input element and set the minimum date
-  $('#start-date').attr('min', formattedToday);
-  $('#end-date').attr('min', formattedToday);
-
-  $('#submit').click(function (e) {
+  $('#submit-exam').click(function (e) {
     e.preventDefault();
-
-    $('.mainPage').css('opacity', '0.5');
-    $('.addQuestions').css('visibility', 'visible');
-    // Get form data
-    const title = $('#exam-title').val();
-    const course = $('#course-name').val();
-    let startDate = new Date($('#start-date').val());
-    let endDate = new Date($('#end-date').val());
-    const examScore = $('#exam-score').val();
-
-    // Convert dates to Cairo timezone
-    startDate = startDate.toISOString();
-    endDate = endDate.toISOString();
-
-    // Prepare data to send
-    const data = {
-      title: title,
-      instructor: userId, // This should be replaced with the actual instructor id
-      start_date: startDate,
-      end_date: endDate,
-      course: course,
-      exam_score: examScore
+    const examData = {
+      title: $('#exam-title').val(),
+      instructor: userId,
+      start_date: $('#start-date').val(),
+      end_date: $('#end-date').val(),
+      course: $('#course-name').val(),
+      exam_score: $('#exam-score').val()
     };
 
-    if (editMode) {
-      // Send PUT request to update existing exam
-      $.ajax({
-        url: `/api/exams/${currentExamId}/`,
-        method: 'PUT',
-        headers: {
-          Authorization: 'Bearer ' + token
-        },
-        data: JSON.stringify(data),
-        contentType: 'application/json',
-        success: function (response) {
-          // Update the exam in the exams list
-          const examDiv = $(`.exam[exam_id="${response.id}"]`);
-          examDiv.find('.title h3').text(response.title);
-          examDiv.find('.title p').text(response.course.title);
-          examDiv.find('.score p').last().text(response.exam_score);
-          examDiv.find('.date .start').text(`start : ${new Date(response.start_date).toLocaleString('en-US', { timeZone: 'Africa/Cairo' })}`);
-          examDiv.find('.date .end').text(`end : ${new Date(response.end_date).toLocaleString('en-US', { timeZone: 'Africa/Cairo' })}`);
-          examDiv.find('.ins').text(`Ins / ${response.instructor.first_name} ${response.instructor.second_name}`);
-        },
-        error: function (error) {
-          console.error('Error updating exam:', error);
-        }
-      });
-    } else {
-      // Send POST request
-      $.ajax({
-        url: '/api/exams/',
-        method: 'POST',
-        headers: {
-          Authorization: 'Bearer ' + token
-        },
-        data: JSON.stringify(data),
-        contentType: 'application/json',
-        success: function (response) {
-          // Append the new exam to the exams list
-          const examDiv = `
-                    <div class="exam" exam_id="${response.id}">
-                        <div class="title">
-                            <h3>${response.title}</h3>
-                            <p>${response.course.title}</p>
-                        </div>
-                        <div class="score">
-                            <p>Exam Score</p>
-                            <p>${response.exam_score}</p>
-                        </div>
-                        <div class="date">
-                            <p class="start">start : ${new Date(response.start_date).toLocaleString()}</p>
-                            <p class="end">end : ${new Date(response.end_date).toLocaleString()}</p>
-                        </div>
-                        <div class="ins">
-                            Ins / ${response.instructor.first_name} ${response.instructor.second_name}
-                        </div>
-                      <button type="button" class="edit_exam" exam_id="${response.id}">Edit</button>
-                      <button type="button" class="delete_exam" exam_id="${response.id}">Delete</button>
-                    </div>`;
-          $('.exams').append(examDiv);
-          $('.delete_exam').on('click', function () {
-            const examId = $(this).attr('exam_id');
-            $.ajax({
-              url: `/api/exams/${examId}/`,
-              method: 'DELETE',
-              headers: {
-                Authorization: 'Bearer ' + token
-              },
-              success: function () {
-                $(`.exam[exam_id="${examId}"]`).remove();
-              },
-              error: function (error) {
-                console.error('Error deleting exam:', error);
-              }
-            });
-          });
-        },
-        error: function (error) {
-          console.error('Error creating exam:', error);
-          $('.exams').append(`<div class="exam" class="error">Error: ${error.status} ${error.statusText}<br>Message: ${error.responseText}</div>`);
-        }
-      });
-    }
-  });
-
-  let currentQuestionId = null;
-
-  $('#next-question, #submit-exam').click(function (e) {
-    console.log('click');
-    e.preventDefault();
-
-    // Get question data
-    const questionText = $('#question').val();
-
-    // Prepare data to send
-    const questionData = {
-      exam: currentExamId,
-      text: questionText
-    };
+    const url = editMode ? `/api/exams/${currentExamId}/` : '/api/exams/';
+    const method = editMode ? 'PUT' : 'POST';
 
     $.ajax({
-      url: '/api/exams/questions/',
-      method: 'POST',
-      headers: {
-        Authorization: 'Bearer ' + token
-      },
-      data: JSON.stringify(questionData),
+      url: url,
+      method: method,
+      headers: { Authorization: 'Bearer ' + token },
+      data: JSON.stringify(examData),
       contentType: 'application/json',
       success: function (response) {
-        // Store the id of the created question
-        currentQuestionId = response.id;
-
-        // Get choice data and submit choices
-        $('.choice-text').each(function (index, element) {
-          const choiceText = $(element).val();
-          const isCorrect = $(element).siblings('.is-correct').is(':checked');
-
-          // Prepare data to send
-          const choiceData = {
-            question: currentQuestionId,
-            text: choiceText,
-            is_correct: isCorrect
-          };
-
-          // Send POST request to create choice
-          $.ajax({
-            url: '/api/exams/choices/',
-            method: 'POST',
-            headers: {
-              Authorization: 'Bearer ' + token
-            },
-            data: JSON.stringify(choiceData),
-            contentType: 'application/json',
-            success: function (response) {
-              // Choice created successfully
-            },
-            error: function (error) {
-              console.error('Error creating choice:', error);
-            }
-          });
-        });
-
-        // If the next question button was clicked, clear the form for the next question
-        if ($(this).attr('id') === 'next-question') {
-          $('#question-form')[0].reset();
-        }
+        fetchExams(userId);
+        clearExamForm();
       },
       error: function (error) {
-        console.error('Error creating question:', error);
+        console.error('Error saving exam:', error);
       }
     });
-
-    // If the submit exam button was clicked, close the question creation window
-    if ($(this).attr('id') === 'submit-exam') {
-      $('.questionForm i').parent().parent().css('visibility', 'hidden');
-      $('.mainPage').css('opacity', '1');
-      editMode = false;
-      currentExamId = null;
-    }
   });
 
-  // Add click event listener to the close icon in the question form
-  $('.questionForm i').click(function () {
-    $('.questionForm i').parent().parent().css('visibility', 'hidden');
-    $('.mainPage').css('opacity', '1');
+  $('#exams-list').on('click', '.edit_exam', function () {
+    const examId = $(this).closest('[data-exam-id]').data('exam-id');
+    currentExamId = examId;
+    editMode = true;
+
+    $.ajax({
+      url: `/api/exams/${examId}/`,
+      method: 'GET',
+      headers: { Authorization: 'Bearer ' + token },
+      success: function (exam) {
+        populateExamForm(exam);
+      },
+      error: function (error) {
+        console.error('Error fetching exam details:', error);
+      }
+    });
+  });
+
+  $('#exams-list').on('click', '.delete_exam', function () {
+    const examId = $(this).closest('[data-exam-id]').data('exam-id');
+    if (confirm('Are you sure you want to delete this exam?')) {
+      $.ajax({
+        url: `/api/exams/${examId}/`,
+        method: 'DELETE',
+        headers: { Authorization: 'Bearer ' + token },
+        success: function () {
+          fetchExams(userId);
+        },
+        error: function (error) {
+          console.error('Error deleting exam:', error);
+        }
+      });
+    }
   });
 });

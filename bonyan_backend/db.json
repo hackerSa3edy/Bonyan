@@ -1,0 +1,2569 @@
+[
+    {
+        "model": "admin.logentry",
+        "pk": 1,
+        "fields": {
+            "action_time": "2024-09-25T12:49:00.090Z",
+            "user": 1,
+            "content_type": 9,
+            "object_id": "2",
+            "object_repr": "mo.hakeem",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 2,
+        "fields": {
+            "action_time": "2024-09-25T12:50:18.155Z",
+            "user": 1,
+            "content_type": 9,
+            "object_id": "3",
+            "object_repr": "shreen",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 3,
+        "fields": {
+            "action_time": "2024-09-25T12:50:55.179Z",
+            "user": 1,
+            "content_type": 9,
+            "object_id": "3",
+            "object_repr": "shreen",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 4,
+        "fields": {
+            "action_time": "2024-09-25T12:50:55.184Z",
+            "user": 1,
+            "content_type": 9,
+            "object_id": "2",
+            "object_repr": "mo.hakeem",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 5,
+        "fields": {
+            "action_time": "2024-09-25T12:51:43.616Z",
+            "user": 1,
+            "content_type": 10,
+            "object_id": "4",
+            "object_repr": "shreen",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 6,
+        "fields": {
+            "action_time": "2024-09-25T12:52:48.709Z",
+            "user": 1,
+            "content_type": 10,
+            "object_id": "5",
+            "object_repr": "mo.hakeem",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 7,
+        "fields": {
+            "action_time": "2024-09-25T12:54:55.068Z",
+            "user": 1,
+            "content_type": 17,
+            "object_id": "1",
+            "object_repr": "Networks",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 8,
+        "fields": {
+            "action_time": "2024-09-25T12:55:08.231Z",
+            "user": 1,
+            "content_type": 18,
+            "object_id": "1",
+            "object_repr": "Level 1",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 9,
+        "fields": {
+            "action_time": "2024-09-25T12:55:26.232Z",
+            "user": 1,
+            "content_type": 11,
+            "object_id": "6",
+            "object_repr": "real3bdelrahman",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 10,
+        "fields": {
+            "action_time": "2024-09-25T13:06:40.099Z",
+            "user": 1,
+            "content_type": 11,
+            "object_id": "6",
+            "object_repr": "real3bdelrahman",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 11,
+        "fields": {
+            "action_time": "2024-09-25T13:06:49.158Z",
+            "user": 1,
+            "content_type": 10,
+            "object_id": "5",
+            "object_repr": "mo.hakeem",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 12,
+        "fields": {
+            "action_time": "2024-09-25T13:06:49.162Z",
+            "user": 1,
+            "content_type": 10,
+            "object_id": "4",
+            "object_repr": "shreen",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 1,
+        "fields": {
+            "name": "Can add log entry",
+            "content_type": 1,
+            "codename": "add_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 2,
+        "fields": {
+            "name": "Can change log entry",
+            "content_type": 1,
+            "codename": "change_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 3,
+        "fields": {
+            "name": "Can delete log entry",
+            "content_type": 1,
+            "codename": "delete_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 4,
+        "fields": {
+            "name": "Can view log entry",
+            "content_type": 1,
+            "codename": "view_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 5,
+        "fields": {
+            "name": "Can add permission",
+            "content_type": 2,
+            "codename": "add_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 6,
+        "fields": {
+            "name": "Can change permission",
+            "content_type": 2,
+            "codename": "change_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 7,
+        "fields": {
+            "name": "Can delete permission",
+            "content_type": 2,
+            "codename": "delete_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 8,
+        "fields": {
+            "name": "Can view permission",
+            "content_type": 2,
+            "codename": "view_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 9,
+        "fields": {
+            "name": "Can add group",
+            "content_type": 3,
+            "codename": "add_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 10,
+        "fields": {
+            "name": "Can change group",
+            "content_type": 3,
+            "codename": "change_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 11,
+        "fields": {
+            "name": "Can delete group",
+            "content_type": 3,
+            "codename": "delete_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 12,
+        "fields": {
+            "name": "Can view group",
+            "content_type": 3,
+            "codename": "view_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 13,
+        "fields": {
+            "name": "Can add content type",
+            "content_type": 4,
+            "codename": "add_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 14,
+        "fields": {
+            "name": "Can change content type",
+            "content_type": 4,
+            "codename": "change_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 15,
+        "fields": {
+            "name": "Can delete content type",
+            "content_type": 4,
+            "codename": "delete_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 16,
+        "fields": {
+            "name": "Can view content type",
+            "content_type": 4,
+            "codename": "view_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 17,
+        "fields": {
+            "name": "Can add session",
+            "content_type": 5,
+            "codename": "add_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 18,
+        "fields": {
+            "name": "Can change session",
+            "content_type": 5,
+            "codename": "change_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 19,
+        "fields": {
+            "name": "Can delete session",
+            "content_type": 5,
+            "codename": "delete_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 20,
+        "fields": {
+            "name": "Can view session",
+            "content_type": 5,
+            "codename": "view_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 21,
+        "fields": {
+            "name": "Can add blacklisted token",
+            "content_type": 6,
+            "codename": "add_blacklistedtoken"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 22,
+        "fields": {
+            "name": "Can change blacklisted token",
+            "content_type": 6,
+            "codename": "change_blacklistedtoken"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 23,
+        "fields": {
+            "name": "Can delete blacklisted token",
+            "content_type": 6,
+            "codename": "delete_blacklistedtoken"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 24,
+        "fields": {
+            "name": "Can view blacklisted token",
+            "content_type": 6,
+            "codename": "view_blacklistedtoken"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 25,
+        "fields": {
+            "name": "Can add outstanding token",
+            "content_type": 7,
+            "codename": "add_outstandingtoken"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 26,
+        "fields": {
+            "name": "Can change outstanding token",
+            "content_type": 7,
+            "codename": "change_outstandingtoken"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 27,
+        "fields": {
+            "name": "Can delete outstanding token",
+            "content_type": 7,
+            "codename": "delete_outstandingtoken"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 28,
+        "fields": {
+            "name": "Can view outstanding token",
+            "content_type": 7,
+            "codename": "view_outstandingtoken"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 29,
+        "fields": {
+            "name": "Can add user",
+            "content_type": 8,
+            "codename": "add_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 30,
+        "fields": {
+            "name": "Can change user",
+            "content_type": 8,
+            "codename": "change_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 31,
+        "fields": {
+            "name": "Can delete user",
+            "content_type": 8,
+            "codename": "delete_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 32,
+        "fields": {
+            "name": "Can view user",
+            "content_type": 8,
+            "codename": "view_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 33,
+        "fields": {
+            "name": "Can add user",
+            "content_type": 9,
+            "codename": "add_admin"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 34,
+        "fields": {
+            "name": "Can change user",
+            "content_type": 9,
+            "codename": "change_admin"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 35,
+        "fields": {
+            "name": "Can delete user",
+            "content_type": 9,
+            "codename": "delete_admin"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 36,
+        "fields": {
+            "name": "Can view user",
+            "content_type": 9,
+            "codename": "view_admin"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 37,
+        "fields": {
+            "name": "Can add user",
+            "content_type": 10,
+            "codename": "add_instructor"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 38,
+        "fields": {
+            "name": "Can change user",
+            "content_type": 10,
+            "codename": "change_instructor"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 39,
+        "fields": {
+            "name": "Can delete user",
+            "content_type": 10,
+            "codename": "delete_instructor"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 40,
+        "fields": {
+            "name": "Can view user",
+            "content_type": 10,
+            "codename": "view_instructor"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 41,
+        "fields": {
+            "name": "Can add user",
+            "content_type": 11,
+            "codename": "add_student"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 42,
+        "fields": {
+            "name": "Can change user",
+            "content_type": 11,
+            "codename": "change_student"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 43,
+        "fields": {
+            "name": "Can delete user",
+            "content_type": 11,
+            "codename": "delete_student"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 44,
+        "fields": {
+            "name": "Can view user",
+            "content_type": 11,
+            "codename": "view_student"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 45,
+        "fields": {
+            "name": "Can add exam",
+            "content_type": 12,
+            "codename": "add_exam"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 46,
+        "fields": {
+            "name": "Can change exam",
+            "content_type": 12,
+            "codename": "change_exam"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 47,
+        "fields": {
+            "name": "Can delete exam",
+            "content_type": 12,
+            "codename": "delete_exam"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 48,
+        "fields": {
+            "name": "Can view exam",
+            "content_type": 12,
+            "codename": "view_exam"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 49,
+        "fields": {
+            "name": "Can add question",
+            "content_type": 13,
+            "codename": "add_question"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 50,
+        "fields": {
+            "name": "Can change question",
+            "content_type": 13,
+            "codename": "change_question"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 51,
+        "fields": {
+            "name": "Can delete question",
+            "content_type": 13,
+            "codename": "delete_question"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 52,
+        "fields": {
+            "name": "Can view question",
+            "content_type": 13,
+            "codename": "view_question"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 53,
+        "fields": {
+            "name": "Can add choice",
+            "content_type": 14,
+            "codename": "add_choice"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 54,
+        "fields": {
+            "name": "Can change choice",
+            "content_type": 14,
+            "codename": "change_choice"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 55,
+        "fields": {
+            "name": "Can delete choice",
+            "content_type": 14,
+            "codename": "delete_choice"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 56,
+        "fields": {
+            "name": "Can view choice",
+            "content_type": 14,
+            "codename": "view_choice"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 57,
+        "fields": {
+            "name": "Can add result",
+            "content_type": 15,
+            "codename": "add_result"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 58,
+        "fields": {
+            "name": "Can change result",
+            "content_type": 15,
+            "codename": "change_result"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 59,
+        "fields": {
+            "name": "Can delete result",
+            "content_type": 15,
+            "codename": "delete_result"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 60,
+        "fields": {
+            "name": "Can view result",
+            "content_type": 15,
+            "codename": "view_result"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 61,
+        "fields": {
+            "name": "Can add student answer",
+            "content_type": 16,
+            "codename": "add_studentanswer"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 62,
+        "fields": {
+            "name": "Can change student answer",
+            "content_type": 16,
+            "codename": "change_studentanswer"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 63,
+        "fields": {
+            "name": "Can delete student answer",
+            "content_type": 16,
+            "codename": "delete_studentanswer"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 64,
+        "fields": {
+            "name": "Can view student answer",
+            "content_type": 16,
+            "codename": "view_studentanswer"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 65,
+        "fields": {
+            "name": "Can add department",
+            "content_type": 17,
+            "codename": "add_department"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 66,
+        "fields": {
+            "name": "Can change department",
+            "content_type": 17,
+            "codename": "change_department"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 67,
+        "fields": {
+            "name": "Can delete department",
+            "content_type": 17,
+            "codename": "delete_department"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 68,
+        "fields": {
+            "name": "Can view department",
+            "content_type": 17,
+            "codename": "view_department"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 69,
+        "fields": {
+            "name": "Can add level",
+            "content_type": 18,
+            "codename": "add_level"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 70,
+        "fields": {
+            "name": "Can change level",
+            "content_type": 18,
+            "codename": "change_level"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 71,
+        "fields": {
+            "name": "Can delete level",
+            "content_type": 18,
+            "codename": "delete_level"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 72,
+        "fields": {
+            "name": "Can view level",
+            "content_type": 18,
+            "codename": "view_level"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 73,
+        "fields": {
+            "name": "Can add course",
+            "content_type": 19,
+            "codename": "add_course"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 74,
+        "fields": {
+            "name": "Can change course",
+            "content_type": 19,
+            "codename": "change_course"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 75,
+        "fields": {
+            "name": "Can delete course",
+            "content_type": 19,
+            "codename": "delete_course"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 76,
+        "fields": {
+            "name": "Can view course",
+            "content_type": 19,
+            "codename": "view_course"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 77,
+        "fields": {
+            "name": "Can add course student enrollment",
+            "content_type": 20,
+            "codename": "add_coursestudentenrollment"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 78,
+        "fields": {
+            "name": "Can change course student enrollment",
+            "content_type": 20,
+            "codename": "change_coursestudentenrollment"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 79,
+        "fields": {
+            "name": "Can delete course student enrollment",
+            "content_type": 20,
+            "codename": "delete_coursestudentenrollment"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 80,
+        "fields": {
+            "name": "Can view course student enrollment",
+            "content_type": 20,
+            "codename": "view_coursestudentenrollment"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 1,
+        "fields": {
+            "app_label": "admin",
+            "model": "logentry"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 2,
+        "fields": {
+            "app_label": "auth",
+            "model": "permission"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 3,
+        "fields": {
+            "app_label": "auth",
+            "model": "group"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 4,
+        "fields": {
+            "app_label": "contenttypes",
+            "model": "contenttype"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 5,
+        "fields": {
+            "app_label": "sessions",
+            "model": "session"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 6,
+        "fields": {
+            "app_label": "token_blacklist",
+            "model": "blacklistedtoken"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 7,
+        "fields": {
+            "app_label": "token_blacklist",
+            "model": "outstandingtoken"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 8,
+        "fields": {
+            "app_label": "accounts",
+            "model": "user"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 9,
+        "fields": {
+            "app_label": "accounts",
+            "model": "admin"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 10,
+        "fields": {
+            "app_label": "accounts",
+            "model": "instructor"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 11,
+        "fields": {
+            "app_label": "accounts",
+            "model": "student"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 12,
+        "fields": {
+            "app_label": "exams",
+            "model": "exam"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 13,
+        "fields": {
+            "app_label": "exams",
+            "model": "question"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 14,
+        "fields": {
+            "app_label": "exams",
+            "model": "choice"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 15,
+        "fields": {
+            "app_label": "exams",
+            "model": "result"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 16,
+        "fields": {
+            "app_label": "exams",
+            "model": "studentanswer"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 17,
+        "fields": {
+            "app_label": "levels",
+            "model": "department"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 18,
+        "fields": {
+            "app_label": "levels",
+            "model": "level"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 19,
+        "fields": {
+            "app_label": "levels",
+            "model": "course"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 20,
+        "fields": {
+            "app_label": "levels",
+            "model": "coursestudentenrollment"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "jppa6mpy3omn9ipvolfd1u331o9x0f0e",
+        "fields": {
+            "session_data": ".eJxVjEEOwiAUBe_C2hB-KYgu3XuG5gEfqRpISrsy3l1JutDtzGReYsK25mlrvExzFGdB4vDLPMKDSxfxjnKrMtSyLrOXPZG7bfJaIz8ve_s3yGi5b71zhGGE8kmxA5FWUF9iB6QUx6AMoF04ER2NseDArKGtM8zWRhLvD-GzOAg:1stRPs:qwl2Gq3YXzGuc5U17Ia4fNPBd79qn9jq8V2Tq8vS_Mo",
+            "expire_date": "2024-10-09T12:46:48.495Z"
+        }
+    },
+    {
+        "model": "token_blacklist.outstandingtoken",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "jti": "a98933bea7684845ac1538d4aa3cc912",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyODU2NTg4MywiaWF0IjoxNzI3MjY5ODgzLCJqdGkiOiJhOTg5MzNiZWE3Njg0ODQ1YWMxNTM4ZDRhYTNjYzkxMiIsInVzZXJfaWQiOjF9.zFEYONXQsMsYAdPrl43tsHHfHayOGL7W7U8QhvDnw2Q",
+            "created_at": "2024-09-25T13:11:23.966Z",
+            "expires_at": "2024-10-10T13:11:23Z"
+        }
+    },
+    {
+        "model": "token_blacklist.outstandingtoken",
+        "pk": 2,
+        "fields": {
+            "user": 7,
+            "jti": "d1b5e0f8d52942229f1e5059d1eb9711",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyODU2NjAyMywiaWF0IjoxNzI3MjcwMDIzLCJqdGkiOiJkMWI1ZTBmOGQ1Mjk0MjIyOWYxZTUwNTlkMWViOTcxMSIsInVzZXJfaWQiOjd9.S1J0B56cUn6rSlx0osCjBwnWHKJUbifwgFdcQbprtLs",
+            "created_at": "2024-09-25T13:13:43.226Z",
+            "expires_at": "2024-10-10T13:13:43Z"
+        }
+    },
+    {
+        "model": "token_blacklist.outstandingtoken",
+        "pk": 3,
+        "fields": {
+            "user": 8,
+            "jti": "ffbe74486e2d4cb3862b93898c679e98",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyODU2NjI5MiwiaWF0IjoxNzI3MjcwMjkyLCJqdGkiOiJmZmJlNzQ0ODZlMmQ0Y2IzODYyYjkzODk4YzY3OWU5OCIsInVzZXJfaWQiOjh9._6Niv524t2tGsQ8uncnB5ZOEOUxbBpv0uIAQXI4610s",
+            "created_at": "2024-09-25T13:18:12.749Z",
+            "expires_at": "2024-10-10T13:18:12Z"
+        }
+    },
+    {
+        "model": "token_blacklist.outstandingtoken",
+        "pk": 4,
+        "fields": {
+            "user": 8,
+            "jti": "ac7a3d3bbb64480585700bec1c68d8a7",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyODU2NzQxOCwiaWF0IjoxNzI3MjcxNDE4LCJqdGkiOiJhYzdhM2QzYmJiNjQ0ODA1ODU3MDBiZWMxYzY4ZDhhNyIsInVzZXJfaWQiOjh9.jLJXP4Q9gBheGtrkVadBLt7I9Q1g5psZFv74FNycAKY",
+            "created_at": "2024-09-25T13:36:58.880Z",
+            "expires_at": "2024-10-10T13:36:58Z"
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 1,
+        "fields": {
+            "is_superuser": true,
+            "last_name": "",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2024-09-25T11:39:01.361Z",
+            "username": "admin",
+            "email": "admin@gmail.com",
+            "password": "pbkdf2_sha256$720000$33TVdRFWjRkBIo5gVuKto5$PdeWNpwlETTAsFQuhVOkmP2yisP3ZEkkqCA2hYPIwxw=",
+            "first_name": "fname",
+            "second_name": "sname",
+            "third_name": null,
+            "fourth_name": null,
+            "gender": "m",
+            "birth_date": "2002-09-18",
+            "city": null,
+            "address": null,
+            "phone": null,
+            "last_login": "2024-09-25T13:11:23.980Z",
+            "user_type": 1,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 7,
+        "fields": {
+            "is_superuser": false,
+            "last_name": "Instructor15",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-09-25T13:13:16.661Z",
+            "username": "mohamed",
+            "email": "mohamed@gmail.com",
+            "password": "pbkdf2_sha256$720000$RjXQ21Mcg5BJKzTV2naykt$st9Pdiq9sKvK2yl10sgONUNJOnrV/K3y+9FAJbGvuNI=",
+            "first_name": "mohamed",
+            "second_name": "samy",
+            "third_name": "Instructor15",
+            "fourth_name": "Instructor15",
+            "gender": "m",
+            "birth_date": "2000-02-02",
+            "city": "Cairo",
+            "address": "Giza",
+            "phone": "+201111111111",
+            "last_login": "2024-09-25T13:13:43.232Z",
+            "user_type": 2,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 8,
+        "fields": {
+            "is_superuser": false,
+            "last_name": "student1",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-09-25T13:17:42.521Z",
+            "username": "abdelrahman",
+            "email": "abdelrahman@gmail.com",
+            "password": "pbkdf2_sha256$720000$Tet142BUy6ANJvdyGR4Zsd$ZedI/8yQA5Fw6VKknlz0Wgi6uSe5dU3tHfWZAG+bNXw=",
+            "first_name": "abdelrahman",
+            "second_name": "mohamed",
+            "third_name": "student1",
+            "fourth_name": "student1",
+            "gender": "m",
+            "birth_date": "2002-09-08",
+            "city": "Cairo",
+            "address": "Nasr City",
+            "phone": "+201111111111",
+            "last_login": "2024-09-25T13:36:58.886Z",
+            "user_type": 3,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.instructor",
+        "pk": 7,
+        "fields": {
+            "specialized_in": "Software Development"
+        }
+    },
+    {
+        "model": "accounts.student",
+        "pk": 8,
+        "fields": {
+            "department": 1,
+            "level": 1
+        }
+    },
+    {
+        "model": "exams.exam",
+        "pk": 1,
+        "fields": {
+            "title": "ALX SE Portfolio",
+            "instructor": 7,
+            "start_date": "2024-09-25T01:00:00Z",
+            "end_date": "2024-09-25T07:30:00Z",
+            "course": 1,
+            "exam_score": 10
+        }
+    },
+    {
+        "model": "exams.exam",
+        "pk": 2,
+        "fields": {
+            "title": "Exam 2",
+            "instructor": 7,
+            "start_date": "2024-09-25T13:00:00Z",
+            "end_date": "2024-09-25T20:30:00Z",
+            "course": 1,
+            "exam_score": 10
+        }
+    },
+    {
+        "model": "exams.exam",
+        "pk": 3,
+        "fields": {
+            "title": "Exam 3",
+            "instructor": 7,
+            "start_date": "2024-09-25T13:00:00Z",
+            "end_date": "2024-09-25T22:30:00Z",
+            "course": 1,
+            "exam_score": 10
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 1,
+        "fields": {
+            "exam": 1,
+            "text": "What is the size of a pointer to an int (on a 64-bit architecture)"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 2,
+        "fields": {
+            "exam": 1,
+            "text": "The memory space reserved when calling malloc is on:"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 3,
+        "fields": {
+            "exam": 1,
+            "text": "This void (*anjula[])(int, float) is:"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 4,
+        "fields": {
+            "exam": 1,
+            "text": "How many bytes will this statement allocate on a 64-bit machine? `malloc(sizeof(char) * 10)`"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 5,
+        "fields": {
+            "exam": 1,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 6,
+        "fields": {
+            "exam": 1,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 7,
+        "fields": {
+            "exam": 1,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 8,
+        "fields": {
+            "exam": 1,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 9,
+        "fields": {
+            "exam": 1,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 10,
+        "fields": {
+            "exam": 1,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 11,
+        "fields": {
+            "exam": 1,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 12,
+        "fields": {
+            "exam": 1,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 13,
+        "fields": {
+            "exam": 2,
+            "text": "What is the size of a pointer to an int (on a 64-bit architecture)"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 14,
+        "fields": {
+            "exam": 2,
+            "text": "The memory space reserved when calling malloc is on:"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 15,
+        "fields": {
+            "exam": 2,
+            "text": "This void (*anjula[])(int, float) is:"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 16,
+        "fields": {
+            "exam": 2,
+            "text": "How many bytes will this statement allocate on a 64-bit machine? `malloc(sizeof(char) * 10)`"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 17,
+        "fields": {
+            "exam": 2,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 18,
+        "fields": {
+            "exam": 2,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 19,
+        "fields": {
+            "exam": 2,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 20,
+        "fields": {
+            "exam": 2,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 21,
+        "fields": {
+            "exam": 2,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 22,
+        "fields": {
+            "exam": 2,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 23,
+        "fields": {
+            "exam": 2,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 24,
+        "fields": {
+            "exam": 2,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 25,
+        "fields": {
+            "exam": 3,
+            "text": "What is the size of a pointer to an int (on a 64-bit architecture)"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 26,
+        "fields": {
+            "exam": 3,
+            "text": "The memory space reserved when calling malloc is on:"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 27,
+        "fields": {
+            "exam": 3,
+            "text": "This void (*anjula[])(int, float) is:"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 28,
+        "fields": {
+            "exam": 3,
+            "text": "How many bytes will this statement allocate on a 64-bit machine? `malloc(sizeof(char) * 10)`"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 29,
+        "fields": {
+            "exam": 3,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 30,
+        "fields": {
+            "exam": 3,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 31,
+        "fields": {
+            "exam": 3,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 32,
+        "fields": {
+            "exam": 3,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 33,
+        "fields": {
+            "exam": 3,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 34,
+        "fields": {
+            "exam": 3,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 35,
+        "fields": {
+            "exam": 3,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.question",
+        "pk": 36,
+        "fields": {
+            "exam": 3,
+            "text": "What is the result of 12 % 3?"
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 1,
+        "fields": {
+            "question": 1,
+            "text": "1 byte",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 2,
+        "fields": {
+            "question": 1,
+            "text": "2 byte",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 3,
+        "fields": {
+            "question": 1,
+            "text": "4 byte",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 4,
+        "fields": {
+            "question": 1,
+            "text": "8 byte",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 5,
+        "fields": {
+            "question": 2,
+            "text": "The heap",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 6,
+        "fields": {
+            "question": 2,
+            "text": "The stack",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 7,
+        "fields": {
+            "question": 2,
+            "text": "I don't knoe",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 8,
+        "fields": {
+            "question": 3,
+            "text": "A pointer to a function that takes an int and a float as parameters and returns nothing",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 9,
+        "fields": {
+            "question": 3,
+            "text": "A pointer to a function that takes an array of int and float as a parameter and returns nothing",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 10,
+        "fields": {
+            "question": 3,
+            "text": "An array of pointers to functions that take an int and a float as parameters and returns nothing",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 11,
+        "fields": {
+            "question": 4,
+            "text": "10",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 12,
+        "fields": {
+            "question": 4,
+            "text": "20",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 13,
+        "fields": {
+            "question": 4,
+            "text": "30",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 14,
+        "fields": {
+            "question": 4,
+            "text": "40",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 15,
+        "fields": {
+            "question": 5,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 16,
+        "fields": {
+            "question": 6,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 17,
+        "fields": {
+            "question": 7,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 18,
+        "fields": {
+            "question": 8,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 19,
+        "fields": {
+            "question": 9,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 20,
+        "fields": {
+            "question": 10,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 21,
+        "fields": {
+            "question": 11,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 22,
+        "fields": {
+            "question": 12,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 23,
+        "fields": {
+            "question": 5,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 24,
+        "fields": {
+            "question": 6,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 25,
+        "fields": {
+            "question": 7,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 26,
+        "fields": {
+            "question": 8,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 27,
+        "fields": {
+            "question": 9,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 28,
+        "fields": {
+            "question": 10,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 29,
+        "fields": {
+            "question": 11,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 30,
+        "fields": {
+            "question": 12,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 31,
+        "fields": {
+            "question": 12,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 32,
+        "fields": {
+            "question": 11,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 33,
+        "fields": {
+            "question": 10,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 34,
+        "fields": {
+            "question": 9,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 35,
+        "fields": {
+            "question": 8,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 36,
+        "fields": {
+            "question": 7,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 37,
+        "fields": {
+            "question": 6,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 38,
+        "fields": {
+            "question": 5,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 39,
+        "fields": {
+            "question": 13,
+            "text": "1 byte",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 40,
+        "fields": {
+            "question": 13,
+            "text": "2 byte",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 41,
+        "fields": {
+            "question": 13,
+            "text": "4 byte",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 42,
+        "fields": {
+            "question": 13,
+            "text": "8 byte",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 43,
+        "fields": {
+            "question": 14,
+            "text": "The heap",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 44,
+        "fields": {
+            "question": 14,
+            "text": "The stack",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 45,
+        "fields": {
+            "question": 14,
+            "text": "I don't knoe",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 46,
+        "fields": {
+            "question": 15,
+            "text": "A pointer to a function that takes an int and a float as parameters and returns nothing",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 47,
+        "fields": {
+            "question": 15,
+            "text": "A pointer to a function that takes an array of int and float as a parameter and returns nothing",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 48,
+        "fields": {
+            "question": 15,
+            "text": "An array of pointers to functions that take an int and a float as parameters and returns nothing",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 49,
+        "fields": {
+            "question": 16,
+            "text": "10",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 50,
+        "fields": {
+            "question": 16,
+            "text": "20",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 51,
+        "fields": {
+            "question": 16,
+            "text": "30",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 52,
+        "fields": {
+            "question": 16,
+            "text": "40",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 53,
+        "fields": {
+            "question": 17,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 54,
+        "fields": {
+            "question": 18,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 55,
+        "fields": {
+            "question": 19,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 56,
+        "fields": {
+            "question": 20,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 57,
+        "fields": {
+            "question": 21,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 58,
+        "fields": {
+            "question": 22,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 59,
+        "fields": {
+            "question": 23,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 60,
+        "fields": {
+            "question": 24,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 61,
+        "fields": {
+            "question": 17,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 62,
+        "fields": {
+            "question": 18,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 63,
+        "fields": {
+            "question": 19,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 64,
+        "fields": {
+            "question": 20,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 65,
+        "fields": {
+            "question": 21,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 66,
+        "fields": {
+            "question": 22,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 67,
+        "fields": {
+            "question": 23,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 68,
+        "fields": {
+            "question": 24,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 69,
+        "fields": {
+            "question": 24,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 70,
+        "fields": {
+            "question": 23,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 71,
+        "fields": {
+            "question": 22,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 72,
+        "fields": {
+            "question": 21,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 73,
+        "fields": {
+            "question": 20,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 74,
+        "fields": {
+            "question": 19,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 75,
+        "fields": {
+            "question": 18,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 76,
+        "fields": {
+            "question": 17,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 77,
+        "fields": {
+            "question": 25,
+            "text": "1 byte",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 78,
+        "fields": {
+            "question": 25,
+            "text": "2 byte",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 79,
+        "fields": {
+            "question": 25,
+            "text": "4 byte",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 80,
+        "fields": {
+            "question": 25,
+            "text": "8 byte",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 81,
+        "fields": {
+            "question": 26,
+            "text": "The heap",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 82,
+        "fields": {
+            "question": 26,
+            "text": "The stack",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 83,
+        "fields": {
+            "question": 26,
+            "text": "I don't knoe",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 84,
+        "fields": {
+            "question": 27,
+            "text": "A pointer to a function that takes an int and a float as parameters and returns nothing",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 85,
+        "fields": {
+            "question": 27,
+            "text": "A pointer to a function that takes an array of int and float as a parameter and returns nothing",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 86,
+        "fields": {
+            "question": 27,
+            "text": "An array of pointers to functions that take an int and a float as parameters and returns nothing",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 87,
+        "fields": {
+            "question": 28,
+            "text": "10",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 88,
+        "fields": {
+            "question": 28,
+            "text": "20",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 89,
+        "fields": {
+            "question": 28,
+            "text": "30",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 90,
+        "fields": {
+            "question": 28,
+            "text": "40",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 91,
+        "fields": {
+            "question": 29,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 92,
+        "fields": {
+            "question": 30,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 93,
+        "fields": {
+            "question": 31,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 94,
+        "fields": {
+            "question": 32,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 95,
+        "fields": {
+            "question": 33,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 96,
+        "fields": {
+            "question": 34,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 97,
+        "fields": {
+            "question": 35,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 98,
+        "fields": {
+            "question": 36,
+            "text": "0",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 99,
+        "fields": {
+            "question": 29,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 100,
+        "fields": {
+            "question": 30,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 101,
+        "fields": {
+            "question": 31,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 102,
+        "fields": {
+            "question": 32,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 103,
+        "fields": {
+            "question": 33,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 104,
+        "fields": {
+            "question": 34,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 105,
+        "fields": {
+            "question": 35,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 106,
+        "fields": {
+            "question": 36,
+            "text": "1",
+            "is_correct": true
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 107,
+        "fields": {
+            "question": 36,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 108,
+        "fields": {
+            "question": 35,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 109,
+        "fields": {
+            "question": 34,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 110,
+        "fields": {
+            "question": 33,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 111,
+        "fields": {
+            "question": 32,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 112,
+        "fields": {
+            "question": 31,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 113,
+        "fields": {
+            "question": 30,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "exams.choice",
+        "pk": 114,
+        "fields": {
+            "question": 29,
+            "text": "3",
+            "is_correct": false
+        }
+    },
+    {
+        "model": "levels.level",
+        "pk": 1,
+        "fields": {}
+    },
+    {
+        "model": "levels.department",
+        "pk": 1,
+        "fields": {
+            "title": "Networks"
+        }
+    },
+    {
+        "model": "levels.course",
+        "pk": 1,
+        "fields": {
+            "course_code": "CS",
+            "title": "django",
+            "description": "python framework",
+            "duration": 5,
+            "level": 1,
+            "instructor": 7
+        }
+    },
+    {
+        "model": "levels.coursestudentenrollment",
+        "pk": 1,
+        "fields": {
+            "student": 8,
+            "course": 1,
+            "pass_status": false
+        }
+    }
+]

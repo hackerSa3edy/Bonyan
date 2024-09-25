@@ -3,128 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DashBoard</title>
-    <!-- google fonts  -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Freeman&family=Raleway:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap?family=Grand+Hotel&display=swap" rel="stylesheet">
-    <!-- font awesome link  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://fonts.googleapis.com/css2?family=Grand+Hotel&family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
-    <!-- styling  -->
-    <link rel="stylesheet" href="/static/style/instructor.css">
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <!-- Instructor dashboard script -->
-    <script src="/static/scripts/instructor.js"></script>
+    <title>Instructor Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&family=Grand+Hotel&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Raleway', 'sans-serif'],
+                        'logo': ['"Grand Hotel"', 'cursive'],
+                    },
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-    <section class="mainPage">
-        <div class="toolBar">
-            <div class="logo">
-                <i class="fa-solid fa-m"></i>
-                <h2>AAT EXAM</h2>
+<body class="bg-gray-100 font-sans">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <nav class="w-64 bg-gray-800 text-white p-6">
+            <div class="flex items-center mb-8">
+                <i class="fa-solid fa-m text-3xl text-blue-400 mr-3"></i>
+                <h2 class="text-2xl font-logo">AAT EXAM</h2>
             </div>
-            <div class="boardClasses">
-                <div class="dashboard">
-                    <div class="title">
-                        <i class="fa-solid fa-border-all"></i>
-                        <h3><a href="{{ url_for('route_dashboard') }}">DASHBOARD</a></h3>
-                    </div>
-                </div>
-                <div class="profile">
-                    <div class="title">
-                        <i class="fa-solid fa-address-card"></i>
-                    <h3><a href="{{ url_for('route_profile') }}">PROFILE</a></h3>
-                    </div>
-                </div>
-                <div class="admin">
-                    <div class="title">
-                        <i class="fa-solid fa-user-tie"></i>
-                        <h3><a href="{{ url_for('route_admin_panel') }}">ADMIN BOARD</a></h3>
-                    </div>
-                </div>
-                <div class="login">
-                    <div class="title">
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                    <h3><a href="{{ url_for('route_logout') }}">LOGOUT</a></h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="board">
+            <ul class="space-y-4">
+                <li>
+                    <a href="#" class="flex items-center p-2 rounded hover:bg-gray-700 transition-colors">
+                        <i class="fa-solid fa-border-all w-6"></i>
+                        <span>DASHBOARD</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center p-2 rounded hover:bg-gray-700 transition-colors">
+                        <i class="fa-solid fa-address-card w-6"></i>
+                        <span>PROFILE</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center p-2 rounded hover:bg-gray-700 transition-colors">
+                        <i class="fa-solid fa-user-tie w-6"></i>
+                        <span>ADMIN BOARD</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center p-2 rounded hover:bg-gray-700 transition-colors">
+                        <i class="fa-solid fa-right-to-bracket w-6"></i>
+                        <span>LOGOUT</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
-            <div class="examsCreated">
-
-                <h2>Exams Created</h2>
-                <div class="exams">
-                    <div class="exam">
-                        <div class="title">
-                            <h3>Exam Title</h3>
-                            <p>course name</p>
+        <!-- Main Content -->
+        <main class="flex-1 p-8">
+            <!-- Exams List -->
+            <section class="mb-8 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold mb-6">Exams Created</h2>
+                <div class="space-y-4" id="exams-list">
+                    <!-- Example Exam Card -->
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-lg font-semibold">Exam Title</h3>
+                                <p class="text-sm text-gray-600">Course Name</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-semibold">Exam Score: 100</p>
+                                <p class="text-xs text-gray-600">Start: Sep 25, 2024 10:00 AM</p>
+                                <p class="text-xs text-gray-600">End: Sep 25, 2024 12:00 PM</p>
+                            </div>
                         </div>
-
-                        <div class="score">
-                            <p>total</p>
-                            <p>100%</p>
-                        </div>
-                        <div class="date">
-                            <p class="start">start : 5:45 BM  Sunday, May 19, 2024</p>
-                            <p class="end">end : 6:45 BM  Sunday, May 19, 2024</p>
-                        </div>
-                        <div class="ins">
-                            Ins / Mohammed
+                        <p class="text-sm text-gray-600 mt-2">Instructor: John Doe</p>
+                        <div class="mt-4 space-x-2">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600 transition-colors">Edit</button>
+                            <button class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600 transition-colors">Delete</button>
+                            <button class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600 transition-colors">Manage Questions</button>
                         </div>
                     </div>
-                    <button type="button" class="edit_exam" exam_id="${exam.id}">Edit</button>
-                    <button type="button" class="delete_exam" exam_id="${exam.id}">Delete</button>
                 </div>
-            </div>
+            </section>
 
-            <div class="createAnExam">
-                <div class="form">
-                    <form action="">
-                        <input type="text" name="title" id="exam-title" placeholder="enter exam title">
-                        <select name="course" id="course-name">
-                            <option value="">web</option>
-                            <option value="">flutter</option>
-                            <option value="">data</option>
-                            <option value="">ai</option>
-                            <option value="">devOps</option>
-                        </select>
-                        <input type="datetime-local" name="start" id="start-date">
-                        <input type="datetime-local" name="end" id="end-date">
-                        <input type="text" name="score" id="exam-score" placeholder="score">
-                        <input type="submit" value="Create New Exam" id="submit">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <div class="addQuestions">
-        <h3>Add Questions</h3>
-        <div class="questionForm">
-            <div class="question">
-                <input type="text" name="question" id="question" placeholder="enter the question">
-            </div>
-            <div class="choices">
-                <input type="text" name="question1" id="question1" placeholder="choice 1">
-                <input type="checkbox" name="correct1" id="correct1"> Is correct ?
-                <input type="text" name="question2" id="question2" placeholder="choice 2">
-                <input type="checkbox" name="correct2" id="correct2"> Is correct ?
-                <input type="text" name="question3" id="question3" placeholder="choice 3">
-                <input type="checkbox" name="correct3" id="correct3"> Is correct ?
-                <input type="text" name="question4" id="question4" placeholder="choice 4">
-                <input type="checkbox" name="correct4" id="correct4"> Is correct ?
-            </div>
-            <div class="btns">
-                <button>Next Question</button>
-                <button>Submit Exam</button>
-            </div>
-            <i class="fa-solid fa-xmark"></i>
-        </div>
-
+            <!-- Create/Edit Exam Form -->
+            <section class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold mb-6">Create/Edit Exam</h2>
+                <form id="exam-form" class="space-y-4">
+                    <input type="text" id="exam-title" placeholder="Enter exam title" class="w-full p-2 border border-gray-300 rounded">
+                    <select id="course-name" class="w-full p-2 border border-gray-300 rounded">
+                        <option value="">Select a course</option>
+                    </select>
+                    <input type="datetime-local" id="start-date" class="w-full p-2 border border-gray-300 rounded">
+                    <input type="datetime-local" id="end-date" class="w-full p-2 border border-gray-300 rounded">
+                    <input type="number" id="exam-score" placeholder="Total score" class="w-full p-2 border border-gray-300 rounded">
+                    <button type="submit" id="submit-exam" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">Save Exam</button>
+                </form>
+            </section>
+        </main>
     </div>
 
+    <!-- Add/Edit Questions Modal -->
+    <div id="question-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+        <div class="bg-white rounded-lg p-6 w-full max-w-2xl relative">
+            <h3 class="text-xl font-semibold mb-4">Manage Questions</h3>
+            <div id="question-list" class="mb-6 space-y-4">
+                <!-- Example Question Item -->
+                <div class="border border-gray-200 rounded p-4 flex justify-between items-center">
+                    <p class="flex-1">What is the capital of France?</p>
+                    <div>
+                        <button class="text-blue-500 hover:text-blue-700 mr-2">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="text-red-500 hover:text-red-700">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-between items-center mb-4">
+                <button id="prev-question-page" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors">Back</button>
+                <span id="question-page-info" class="text-gray-700"></span>
+                <button id="next-question-page" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors">Next</button>
+            </div>
+            <form id="question-form" class="space-y-4">
+                <input type="text" id="question" placeholder="Enter the question" class="w-full p-2 border border-gray-300 rounded">
+                <div class="space-y-2">
+                    <div class="flex items-center">
+                        <input id="choice-1" type="text" class="flex-1 p-2 border border-gray-300 rounded" placeholder="Choice 1">
+                        <label class="ml-2">
+                            <input id="correct-1" type="checkbox" class="mr-1"> Correct
+                        </label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="choice-2" type="text" class="flex-1 p-2 border border-gray-300 rounded" placeholder="Choice 2">
+                        <label class="ml-2">
+                            <input id="correct-2" type="checkbox" class="mr-1"> Correct
+                        </label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="choice-3" type="text" class="flex-1 p-2 border border-gray-300 rounded" placeholder="Choice 3">
+                        <label class="ml-2">
+                            <input id="correct-3" type="checkbox" class="mr-1"> Correct
+                        </label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="choice-4" type="text" class="flex-1 p-2 border border-gray-300 rounded" placeholder="Choice 4">
+                        <label class="ml-2">
+                            <input id="correct-4" type="checkbox" class="mr-1"> Correct
+                        </label>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button type="button" id="submit-question" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">Add Question</button>
+                    <button type="button" id="next-question" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">Next Question</button>
+                </div>
+            </form>
+            <button id="close-question-form" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/scripts/instructor.js"></script>
 </body>
 </html>
