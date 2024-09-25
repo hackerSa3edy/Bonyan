@@ -14,4 +14,4 @@ def unauthorized_response(callback):
     flash("You must be logged in to view this page.", category='error')
     return redirect(url_for('route_login'))
 
-from maat_app.views import *
+from bonyan_app.views import *
