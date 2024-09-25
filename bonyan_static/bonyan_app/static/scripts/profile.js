@@ -67,7 +67,7 @@ $(document).ready(function () {
   };
 
   const getURL = (userRole) => {
-    const baseURL = 'https://maat-system.s1cario.tech/api/accounts/';
+    const baseURL = '/api/accounts/';
     let url;
     switch (userRole) {
       case 'admin':

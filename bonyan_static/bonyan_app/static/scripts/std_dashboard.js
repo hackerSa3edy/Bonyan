@@ -30,7 +30,7 @@ $(document).ready(function () {
 
   const getUserProfile = (userId, token) => {
     return $.ajax({
-      url: 'https://maat-system.s1cario.tech/api/accounts/students/' + userId + '/',
+      url: '/api/accounts/students/' + userId + '/',
       type: 'GET',
       headers: {
         Authorization: 'Bearer ' + token
@@ -95,7 +95,7 @@ $(document).ready(function () {
 
   const getExams = (token) => {
     $.ajax({
-      url: 'https://maat-system.s1cario.tech/api/exams/',
+      url: '/api/exams/',
       type: 'GET',
       headers: {
         Authorization: 'Bearer ' + token
@@ -142,7 +142,7 @@ $(document).ready(function () {
 
   const getFinishedExams = (username, token) => {
     $.ajax({
-      url: `https://maat-system.s1cario.tech/api/exams/results/?student_name=${username}`,
+      url: `/api/exams/results/?student_name=${username}`,
       type: 'GET',
       headers: {
         Authorization: 'Bearer ' + token

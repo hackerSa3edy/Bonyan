@@ -1,37 +1,69 @@
-$(document).ready(function () {
-  $('form').on('submit', function (event) {
-    // Prevent the form from submitting the traditional way
-    event.preventDefault();
-    $('#flash-message').text('Incorrect username or password.').hide();
+$(document).ready(function() {
+    // Function to store tokens in localStorage
+    function storeTokens(access, refresh) {
+        localStorage.setItem('accessToken', access);
+        localStorage.setItem('refreshToken', refresh);
+    }
 
-    const username = $('#username').val();
-    const password = $('#pass').val();
-    const rememberMe = $('#remember-me').is(':checked'); // Assuming the id of your checkbox is 'remember-me'
-
-    $.ajax({
-      url: 'https://maat-system.s1cario.tech/api/auth/token/',
-      type: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify({
-        username: username,
-        password: password
-      }),
-      success: function (token) {
-        if (rememberMe) {
-        // Set cookie to expire in 7 days
-          const date = new Date();
-          date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
-          const expires = '; expires=' + date.toUTCString();
-          document.cookie = `jwtAccess=${token.access}; path=/; domain=.s1cario.tech; expires=${expires}`;
-        } else {
-        // Set cookie that expires when browser is closed
-          document.cookie = `jwtAccess=${token.access}; path=/; domain=.s1cario.tech`;
+    // Function to set cookie
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
         }
-        window.location.href = '/profile';
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        $('#flash-message').text(jqXHR?.responseJSON?.detail || errorThrown || textStatus).show();
-      }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    // Handle form submission
+    $('#login-form').on('submit', function(e) {
+        e.preventDefault();
+        
+        const username = $('#username').val();
+        const password = $('#pass').val();
+        const rememberMe = $('#remember-me').is(':checked');
+
+        fetch('/api/auth/token/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({ username: username, password: password })
+        })
+        .then(response => {
+            if (!response.ok) {
+                if (response.status === 401) {
+                    throw new Error('Invalid username or password. Please try again.');
+                } else {
+                    throw new Error('An error occurred. Please try again later.');
+                }
+            }
+            return response.json();
+        })
+        .then(data => {
+            storeTokens(data.access, data.refresh);
+            
+            if (rememberMe) {
+                // Set cookie to expire in 7 days
+                setCookie('jwtAccess', data.access, 7);
+            } else {
+                // Set cookie that expires when browser is closed
+                setCookie('jwtAccess', data.access);
+            }
+            
+            window.location.href = '/profile';
+        })
+        .catch(error => {
+            showError(error.message);
+        });
     });
-  });
+
+    function showError(message) {
+        $('#flash-message').text(message).show();
+        setTimeout(function() {
+            $('#flash-message').hide();
+        }, 5000);
+    }
 });

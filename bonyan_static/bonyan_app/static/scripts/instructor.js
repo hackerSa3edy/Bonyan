@@ -9,7 +9,7 @@ $(document).ready(function () {
   function fetchCourses (instructorId) {
     $('#course-name').empty();
     $.ajax({
-      url: `https://maat-system.s1cario.tech/api/levels/courses/?instructor=${instructorId}`,
+      url: `/api/levels/courses/?instructor=${instructorId}`,
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + token
@@ -34,7 +34,7 @@ $(document).ready(function () {
   function fetchExams (userId) {
     $('.exams').empty();
     $.ajax({
-      url: `https://maat-system.s1cario.tech/api/exams/?instructor_id=${userId}`,
+      url: `/api/exams/?instructor_id=${userId}`,
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + token
@@ -76,7 +76,7 @@ $(document).ready(function () {
               editMode = true;
 
               // Populate the form with the exam data
-              fetch(`https://maat-system.s1cario.tech/api/exams/${examId}`, {
+              fetch(`/api/exams/${examId}`, {
                 headers: {
                   Authorization: 'Bearer ' + token // replace 'token' with your actual token
                 }
@@ -105,7 +105,7 @@ $(document).ready(function () {
             $('.delete_exam').on('click', function () {
               const examId = $(this).attr('exam_id');
               $.ajax({
-                url: `https://maat-system.s1cario.tech/api/exams/${examId}/`,
+                url: `/api/exams/${examId}/`,
                 method: 'DELETE',
                 headers: {
                   Authorization: 'Bearer ' + token
@@ -170,7 +170,7 @@ $(document).ready(function () {
     if (editMode) {
       // Send PUT request to update existing exam
       $.ajax({
-        url: `https://maat-system.s1cario.tech/api/exams/${currentExamId}/`,
+        url: `/api/exams/${currentExamId}/`,
         method: 'PUT',
         headers: {
           Authorization: 'Bearer ' + token
@@ -194,7 +194,7 @@ $(document).ready(function () {
     } else {
       // Send POST request
       $.ajax({
-        url: 'https://maat-system.s1cario.tech/api/exams/',
+        url: '/api/exams/',
         method: 'POST',
         headers: {
           Authorization: 'Bearer ' + token
@@ -227,7 +227,7 @@ $(document).ready(function () {
           $('.delete_exam').on('click', function () {
             const examId = $(this).attr('exam_id');
             $.ajax({
-              url: `https://maat-system.s1cario.tech/api/exams/${examId}/`,
+              url: `/api/exams/${examId}/`,
               method: 'DELETE',
               headers: {
                 Authorization: 'Bearer ' + token
@@ -265,7 +265,7 @@ $(document).ready(function () {
     };
 
     $.ajax({
-      url: 'https://maat-system.s1cario.tech/api/exams/questions/',
+      url: '/api/exams/questions/',
       method: 'POST',
       headers: {
         Authorization: 'Bearer ' + token
@@ -290,7 +290,7 @@ $(document).ready(function () {
 
           // Send POST request to create choice
           $.ajax({
-            url: 'https://maat-system.s1cario.tech/api/exams/choices/',
+            url: '/api/exams/choices/',
             method: 'POST',
             headers: {
               Authorization: 'Bearer ' + token
