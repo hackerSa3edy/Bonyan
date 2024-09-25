@@ -21,7 +21,8 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 #     return identity
 
 # Initialize Docker client
-client = docker.from_env()
+# client = docker.from_env()
+client = docker.DockerClient(base_url='tcp://host.docker.internal:2375')
 
 # Dictionary to hold references to terminal emulators
 terminals = {}
@@ -29,7 +30,7 @@ terminals = {}
 # Initialize logging
 logging.basicConfig(level=logging.INFO)
 
-@app.route('/terminal')
+@app.route('/terminal', strict_slashes=False)
 @jwt_required(locations=['headers', 'cookies'])
 def index():
     # token = get_jwt()
@@ -118,4 +119,4 @@ def read_socket(namespace, container_id, broadcast=True):
             emit('output', {'output': output.decode()}, namespace=namespace, broadcast=broadcast)
 
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=5000)
+    socketio.run(app, host='0.0.0.0', port=5000, debug=True)

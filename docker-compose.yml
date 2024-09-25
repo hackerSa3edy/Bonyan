@@ -1,59 +1,61 @@
-version: "3.8"
+name: bonyan-v2
+
 services:
-  postgres:
+  postgresdb:
     container_name: postgres
     hostname: postgres
     image: postgres:16
-    restart: unless-stopped
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_DB=${DATABASE_NAME}
-      - POSTGRES_USER=${DATABASE_USER}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+    env_file:
+      - ./bonyan_backend/.env
     networks:
       - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME}"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   api:
     container_name: api
     hostname: api
-    restart: unless-stopped
     build:
-      context: ./bonyan
+      context: ./bonyan_backend
       dockerfile: api.Dockerfile
     env_file:
-      - ./bonyan/.env
-    volumes:
-      - static_data:/app/static
+      - ./bonyan_backend/.env
     depends_on:
-      - postgres
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn project.wsgi --bind 0.0.0.0:80 --reload"
+      postgresdb:
+        condition: service_healthy
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn project.wsgi --bind 0.0.0.0:8000 --reload"
+    # command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     networks:
       - backend
 
   dockerized_terminal:
     container_name: dockerized_terminal
     hostname: dockerized_terminal
-    restart: unless-stopped
     build:
       context: ./dockerized_terminal
-      dockerfile: Dockerfile
-    env_file:
-      - ./dockerized_terminal/.env
+      dockerfile: term.Dockerfile
     command: gunicorn --worker-class eventlet -w 1 app:app --bind 0.0.0.0:5000
+    # command: python app.py
+    environment:
+      - DOCKER_HOST=tcp://host.docker.internal:2375
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     networks:
       - backend
 
-  maat_static:
-    container_name: maat_static
-    hostname: maat_static
-    restart: unless-stopped
+  bonyan_static:
+    container_name: bonyan_static
+    hostname: bonyan_static
     build:
-      context: ./MAAT_Static
-      dockerfile: Dockerfile
-    env_file:
-      - ./MAAT_Static/.env
+      context: ./bonyan_static
+      dockerfile: static.Dockerfile
     command: gunicorn run:app --bind 0.0.0.0:8080
+    # command: python run.py
     networks:
       - backend
 
@@ -61,15 +63,14 @@ services:
     container_name: nginx
     hostname: nginx
     image: nginx:latest
-    restart: unless-stopped
     ports:
-      - "8000:80"  # Expose only nginx
+      - "80:80"  # Expose only nginx
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - api
       - dockerized_terminal
-      - maat_static
+      - bonyan_static
     networks:
       - frontend
       - backend

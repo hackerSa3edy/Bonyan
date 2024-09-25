@@ -152,10 +152,10 @@ DATABASES = {
     "default": {
         "ENGINE": config("DATABASE_ENGINE"),
         "HOST": config("DATABASE_HOST"),
-        "PORT": config("DATABASE_PORT", cast=int),
-        "NAME": config("DATABASE_NAME"),
-        "USER": config("DATABASE_USER"),
-        "PASSWORD": config("DATABASE_PASSWORD"),
+        "PORT": config("POSTGRES_PORT", cast=int),
+        "NAME": config("POSTGRES_DB"),
+        "USER": config("POSTGRES_USER"),
+        "PASSWORD": config("POSTGRES_PASSWORD"),
     }
 }
 
