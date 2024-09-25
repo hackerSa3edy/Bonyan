@@ -1,7 +1,7 @@
 from flask import Flask, flash, redirect, url_for
 from flask_jwt_extended import JWTManager
 
-app = Flask(__name__, template_folder='maat_app/templates', static_folder='maat_app/static')
+app = Flask(__name__, template_folder='bonyan_app/templates', static_folder='bonyan_app/static')
 app.config['SECRET_KEY'] = r'django-insecure-%2dmqnqj9v2e&8yk*t=#b+2-=i!45+153*@-g0*=&%1od16z^m'
 app.config['JWT_SECRET_KEY'] = 'JWT_S3CR3T_K3Y' # fake: jwt-secret-string
 app.config['JWT_IDENTITY_CLAIM'] = 'user_id'  # Change this if you want to use a different claim

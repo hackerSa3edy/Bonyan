@@ -35,8 +35,8 @@ def route_dashboard():
         return render_template('student_dashboard.html')
     elif user_type == 'instructor':
         return render_template('instructor_dashboard.html')
-    elif user_type == 'admin':
-        return render_template('admin_dashboard.html')
+    # elif user_type == 'admin':
+        # return render_template('admin_dashboard.html')
     else:
         return redirect(url_for('route_login'))
 
@@ -53,4 +53,4 @@ def route_exam():
 
 @app.route('/admin-panel')
 def route_admin_panel():
-    return make_response(redirect("http://localhost/admin"))
+    return make_response(redirect("/admin"))
