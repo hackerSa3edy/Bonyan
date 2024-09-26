@@ -22,9 +22,13 @@ $(document).ready(function () {
     const coursesContainer = $('.courses');
 
     coursesContainer.empty();
-    coursesContainer.append('<h2>Semester Courses</h2>');
     courses.forEach(course => {
-      coursesContainer.append(`<div class="course">${course.title}</div>`);
+      coursesContainer.append(`
+        <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold mb-2">${course.title}</h3>
+          <p class="text-sm text-gray-600">Course Code: ${course.code || 'N/A'}</p>
+        </div>
+      `);
     });
   };
 
@@ -41,33 +45,36 @@ $(document).ready(function () {
   };
 
   const populateExams = (data) => {
-    const exams = data.results;
-    const examsContainer = $('.nonFinishedExams .exams');
-
-    examsContainer.empty();
-    exams.forEach(exam => {
-      const examDiv = `
-        <div class="exam" exam_id="${exam.id}">
-          <div class="title">
-            <h3>ID: ${exam.id}</h3>
-            <h3>${exam.title}</h3>
-            <p>${exam.course.title}</p>
-          </div>
-          <div class="score">
-            <div class="row">
-              <p>exam score</p>
-              <p>${exam.exam_score}</p>
-            </div>
-          </div>
-          <div class="date">
-            <p class="start">start : ${new Date(exam.start_date).toLocaleString()}</p>
-            <p class="end">end : ${new Date(exam.end_date).toLocaleString()}</p>
-          </div>
-          <div class="ins">
-            Ins / ${exam.instructor.first_name} ${exam.instructor.second_name}
-          </div>
-          <button type="button" class="start-exam" exam_id="${exam.id}">Start</button>
-        </div>`;
+      const exams = data.results;
+      const examsContainer = $('.nonFinishedExams .exams');
+  
+      examsContainer.empty();
+      exams.forEach(exam => {
+          const currentDate = new Date();
+          const startDate = new Date(exam.start_date);
+          const endDate = new Date(exam.end_date);
+          const isExamActive = currentDate >= startDate && currentDate <= endDate;
+  
+          const examDiv = `
+              <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow" exam_id="${exam.id}">
+                  <div class="flex justify-between items-start mb-4">
+                      <div>
+                          <h3 class="text-lg font-semibold">${exam.title}</h3>
+                          <p class="text-sm text-gray-600">Course: ${exam.course.title}</p>
+                          <p class="text-xs text-gray-500">ID: ${exam.id}</p>
+                      </div>
+                      <div class="text-right">
+                          <p class="text-sm font-semibold">Exam Score: ${exam.exam_score}</p>
+                          <p class="text-xs text-gray-600">Start: ${startDate.toLocaleString()}</p>
+                          <p class="text-xs text-gray-600">End: ${endDate.toLocaleString()}</p>
+                      </div>
+                  </div>
+                  <p class="text-sm text-gray-600 mb-4">Instructor: ${exam.instructor.first_name} ${exam.instructor.second_name}</p>
+                  <button type="button" class="start-exam w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors ${isExamActive ? '' : 'opacity-50 cursor-not-allowed'}" exam_id="${exam.id}" ${isExamActive ? '' : 'disabled'}>
+                      ${isExamActive ? 'Start Exam' : 'Exam is not active'}
+                  </button>
+              </div>
+          `;
       examsContainer.append(examDiv);
 
       setTimeout(() => {
@@ -112,29 +119,21 @@ $(document).ready(function () {
     examsContainer.empty();
     results.forEach(result => {
       const resultDiv = `
-        <div class="exam">
-          <div class="title">
-            <h3>ID: ${result.exam.id}</h3>
-            <h3>${result.exam.title}</h3>
-            <p>${result.exam.course_title}</p>
-          </div>
-          <div class="score">
-            <div class="row">
-              <p class="exam_score">exam score</p>
-              <p>${result.exam.exam_score}</p>
+        <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h3 class="text-lg font-semibold">${result.exam.title}</h3>
+              <p class="text-sm text-gray-600">Course: ${result.exam.course_title}</p>
+              <p class="text-xs text-gray-500">ID: ${result.exam.id}</p>
             </div>
-            <div class="row">
-              <p class="std_score">student score</p>
-              <p>${result.score}</p>
+            <div class="text-right">
+              <p class="text-sm font-semibold">Exam Score: ${result.exam.exam_score}</p>
+              <p class="text-sm font-semibold text-green-600">Your Score: ${result.score}</p>
+              <p class="text-xs text-gray-600">Start: ${new Date(result.exam.start_date).toLocaleString()}</p>
+              <p class="text-xs text-gray-600">End: ${new Date(result.exam.end_date).toLocaleString()}</p>
             </div>
           </div>
-          <div class="date">
-            <p class="start">start : ${new Date(result.exam.start_date).toLocaleString()}</p>
-            <p class="end">end : ${new Date(result.exam.end_date).toLocaleString()}</p>
-          </div>
-          <div class="ins">
-            Ins / ${result.instructor.first_name} ${result.instructor.second_name}
-          </div>
+          <p class="text-sm text-gray-600">Instructor: ${result.instructor.first_name} ${result.instructor.second_name}</p>
         </div>`;
       examsContainer.append(resultDiv);
     });

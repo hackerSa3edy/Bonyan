@@ -7,15 +7,14 @@ $(document).ready(function () {
 
   const populateUserProfile = (data) => {
     $('#username').val(data.username);
-    $('.profile p').text(data.username);
-    $('.mainData h3').text(data.username);
+    $('#profile-name').text(data.username);
     $('#email').val(data.email);
     $('#city').val(data.city);
     if ('level' in data) {
       $('#h-level').text('Level ' + data.level);
       $('#level').val(data.level);
     } else {
-      $('#level').hide();
+      $('#level').parent().hide();
       $('#h-level').hide();
     }
     $('#first_name').val(data.first_name);
@@ -36,22 +35,22 @@ $(document).ready(function () {
     } else {
       $('#specialization').hide();
     }
-    $('#joined_at').text('Joined at : ' + new Date(data.date_joined).toLocaleDateString());
+    $('#joined_at').text('Joined at: ' + new Date(data.date_joined).toLocaleDateString());
 
-    // At the top of your script, after the page has loaded
     fields.forEach(field => {
       originalData[field] = $(`#${field}`).val();
-      // console.log(originalData[field]);
     });
   };
 
   const handleAjaxError = (jqXHR, textStatus) => {
-    $('#flash-message').text(
-      jqXHR?.responseJSON?.detail ||
+    const errorMessage = jqXHR?.responseJSON?.detail ||
       jqXHR?.responseJSON?.username ||
       jqXHR?.responseJSON?.email ||
-      textStatus);
-    $('#flash-message').show();
+      textStatus;
+    $('#flash-message').text(errorMessage).removeClass('hidden');
+    setTimeout(() => {
+      $('#flash-message').addClass('hidden');
+    }, 5000);
   };
 
   const getUserProfile = (userId, token, url) => {
@@ -96,25 +95,38 @@ $(document).ready(function () {
   const url = getURL(userRole);
   getUserProfile(userId, token, url);
 
+  let isEditing = false;
+
   $('#update').click(function () {
-    $('input').each(function () {
-      $(this).removeAttr('readonly');
-    });
-    $('select').each(function () {
-      $(this).prop('disabled', false);
-    });
-    $(this).css('background-color', 'white');
+    if (isEditing) {
+      // Cancel update
+      $('input, select').not('#username, #email').each(function () {
+        $(this).prop('readonly', true).prop('disabled', true);
+      });
+      $(this).removeClass('bg-white text-blue-500 border border-blue-500').addClass('bg-blue-500 text-white').text('Update');
+      $('#save').hide();
+      isEditing = false;
+    } else {
+      // Enable update
+      $('input, select').not('#username, #email').each(function () {
+        $(this).prop('readonly', false).prop('disabled', false);
+      });
+      $(this).addClass('bg-white text-blue-500 border border-blue-500').removeClass('bg-blue-500 text-white').text('Cancel');
+      $('#save').show();
+      isEditing = true;
+    }
   });
+
+  $('#save').hide(); // Initially hide the save button
 
   $('#save').click(function () {
     const userData = {};
-    // Inside the save button click handler
     fields.forEach(field => {
       const currentValue = $(`#${field}`).val();
-      // console.log(`current value: ${currentValue}, original value: ${originalData[field]}`);
       if (currentValue !== originalData[field] && !$(`#${field}`).is(':hidden')) {
         userData[field] = currentValue;
       }
+      $('#save').hide(); // Initially hide the save button
     });
 
     $.ajax({
@@ -127,13 +139,14 @@ $(document).ready(function () {
       data: JSON.stringify(userData),
       success: (data) => {
         populateUserProfile(data);
-        $('input').each(function () {
-          $(this).attr('readonly', 'true');
+        $('input, select').each(function () {
+          $(this).prop('readonly', true).prop('disabled', true);
         });
-        $('select').each(function () {
-          $(this).prop('disabled', true);
-        });
-        $('#update').css('background-color', '#b3d6f5');
+        $('#update').removeClass('bg-white text-blue-500 border border-blue-500').addClass('bg-blue-500 text-white');
+        $('#flash-message').text('Profile updated successfully').removeClass('hidden bg-red-100 border-red-400 text-red-700').addClass('bg-green-100 border-green-400 text-green-700');
+        setTimeout(() => {
+          $('#flash-message').addClass('hidden');
+        }, 5000);
       },
       error: handleAjaxError
     });
