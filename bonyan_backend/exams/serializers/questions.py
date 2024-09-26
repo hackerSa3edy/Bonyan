@@ -40,8 +40,7 @@ class QuestionSerializer(serializers.ModelSerializer):
         choices = instance.choices.all()
         representation["choices"] = []
         user = self.context.get("request").user
-        if user.user_type == 2:
-            show_correct_choice = True
+        show_correct_choice = True if user.user_type == 2 else False
         for choice in choices:
             representation["choices"].append({
                 "id": choice.id,

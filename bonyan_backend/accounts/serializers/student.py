@@ -138,5 +138,6 @@ class StudentSerializer(BaseStudentSerializer):
             representation["courses"].append({
                 "id": course.id,
                 "title": course.title,
+                "code": course.course_code,
                 })
         return representation
