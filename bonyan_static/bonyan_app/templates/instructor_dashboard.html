@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Instructor Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&family=Grand+Hotel&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -19,8 +19,6 @@
             }
         }
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/static/scripts/profile.js"></script>
 </head>
 <body class="bg-gray-100 font-sans">
     <div class="flex min-h-screen">
@@ -60,71 +58,113 @@
 
         <!-- Main Content -->
         <main class="flex-1 p-8">
-            <section class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-2xl font-semibold mb-6">Profile</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="space-y-4">
-                        <div class="flex items-center space-x-4 mb-4">
-                            <img src="/static/images/profile.png" alt="profileImg" class="w-24 h-24 rounded-full">
+            <!-- Exams List -->
+            <section class="mb-8 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold mb-6">Exams Created</h2>
+                <div class="space-y-4" id="exams-list">
+                    <!-- Example Exam Card -->
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                        <div class="flex justify-between items-start">
                             <div>
-                                <h3 id="profile-name" class="text-xl font-semibold">User Name</h3>
-                                <p id="h-level" class="text-gray-600">Level ?</p>
+                                <h3 class="text-lg font-semibold">Exam Title</h3>
+                                <p class="text-sm text-gray-600">Course Name</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-semibold">Exam Score: 100</p>
+                                <p class="text-xs text-gray-600">Start: Sep 25, 2024 10:00 AM</p>
+                                <p class="text-xs text-gray-600">End: Sep 25, 2024 12:00 PM</p>
                             </div>
                         </div>
-                        <div class="space-y-2">
-                            <div class="flex items-center">
-                                <i class="fa-solid fa-user w-6 text-gray-400"></i>
-                                <input type="text" id="username" class="flex-1 p-2 border border-gray-300 rounded" readonly>
-                            </div>
-                            <div class="flex items-center">
-                                <i class="fa-solid fa-envelope w-6 text-gray-400"></i>
-                                <input type="email" id="email" class="flex-1 p-2 border border-gray-300 rounded" readonly>
-                            </div>
-                            <div class="flex items-center">
-                                <i class="fa-solid fa-location-dot w-6 text-gray-400"></i>
-                                <input type="text" id="city" class="flex-1 p-2 border border-gray-300 rounded" readonly>
-                            </div>
-                            <div class="flex items-center">
-                                <i class="fa-solid fa-layer-group w-6 text-gray-400"></i>
-                                <select name="level" id="level" class="flex-1 p-2 border border-gray-300 rounded" disabled>
-                                    <option value="1">First</option>
-                                    <option value="2">Second</option>
-                                    <option value="3">Third</option>
-                                    <option value="4">Fourth</option>
-                                </select>
-                            </div>
+                        <p class="text-sm text-gray-600 mt-2">Instructor: John Doe</p>
+                        <div class="mt-4 space-x-2">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600 transition-colors">Edit</button>
+                            <button class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600 transition-colors">Delete</button>
+                            <button class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600 transition-colors">Manage Questions</button>
                         </div>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="grid grid-cols-2 gap-4">
-                            <input type="text" id="first_name" placeholder="first name" class="p-2 border border-gray-300 rounded" readonly>
-                            <input type="text" id="second_name" placeholder="second name" class="p-2 border border-gray-300 rounded" readonly>
-                            <input type="text" id="third_name" placeholder="third name" class="p-2 border border-gray-300 rounded" readonly>
-                            <input type="text" id="fourth_name" placeholder="fourth name" class="p-2 border border-gray-300 rounded" readonly>
-                        </div>
-                        <div class="flex space-x-4">
-                            <select name="gender" id="gender" class="flex-1 p-2 border border-gray-300 rounded" disabled>
-                                <option value="m">Male</option>
-                                <option value="f">Female</option>
-                            </select>
-                            <input type="text" id="birth_date" placeholder="enter your birth date" class="flex-1 p-2 border border-gray-300 rounded" readonly>
-                        </div>
-                        <input type="text" id="address" placeholder="your address" class="w-full p-2 border border-gray-300 rounded" readonly>
-                        <input type="text" id="phone_number" placeholder="your phone number" class="w-full p-2 border border-gray-300 rounded" readonly>
-                        <div class="flex space-x-4">
-                            <input type="text" id="department" placeholder="enter your department" class="flex-1 p-2 border border-gray-300 rounded" readonly>
-                            <input type="text" id="specialization" placeholder="enter your specialization" class="flex-1 p-2 border border-gray-300 rounded" readonly>
-                        </div>
-                        <p id="joined_at" class="text-sm text-gray-600">Joined at: ????/??/??</p>
-                        <div class="flex space-x-4">
-                            <button id="update" class="flex-1 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">Update</button>
-                            <button id="save" class="flex-1 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">Save</button>
-                        </div>
-                        <div id="flash-message" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert"></div>
                     </div>
                 </div>
             </section>
+
+            <!-- Create/Edit Exam Form -->
+            <section class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold mb-6">Create/Edit Exam</h2>
+                <form id="exam-form" class="space-y-4">
+                    <input type="text" id="exam-title" placeholder="Enter exam title" class="w-full p-2 border border-gray-300 rounded">
+                    <select id="course-name" class="w-full p-2 border border-gray-300 rounded">
+                        <option value="">Select a course</option>
+                    </select>
+                    <input type="datetime-local" id="start-date" class="w-full p-2 border border-gray-300 rounded">
+                    <input type="datetime-local" id="end-date" class="w-full p-2 border border-gray-300 rounded">
+                    <input type="number" id="exam-score" placeholder="Total score" class="w-full p-2 border border-gray-300 rounded">
+                    <button type="submit" id="submit-exam" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">Save Exam</button>
+                </form>
+            </section>
         </main>
     </div>
+
+    <!-- Add/Edit Questions Modal -->
+    <div id="question-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+        <div class="bg-white rounded-lg p-6 w-full max-w-2xl relative">
+            <h3 class="text-xl font-semibold mb-4">Manage Questions</h3>
+            <div id="question-list" class="mb-6 space-y-4">
+                <!-- Example Question Item -->
+                <div class="border border-gray-200 rounded p-4 flex justify-between items-center">
+                    <p class="flex-1">What is the capital of France?</p>
+                    <div>
+                        <button class="text-blue-500 hover:text-blue-700 mr-2">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="text-red-500 hover:text-red-700">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-between items-center mb-4">
+                <button id="prev-question-page" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors">Back</button>
+                <span id="question-page-info" class="text-gray-700"></span>
+                <button id="next-question-page" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors">Next</button>
+            </div>
+            <form id="question-form" class="space-y-4">
+                <input type="text" id="question" placeholder="Enter the question" class="w-full p-2 border border-gray-300 rounded">
+                <div class="space-y-2">
+                    <div class="flex items-center">
+                        <input id="choice-1" type="text" class="flex-1 p-2 border border-gray-300 rounded" placeholder="Choice 1">
+                        <label class="ml-2">
+                            <input id="correct-1" type="checkbox" class="mr-1"> Correct
+                        </label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="choice-2" type="text" class="flex-1 p-2 border border-gray-300 rounded" placeholder="Choice 2">
+                        <label class="ml-2">
+                            <input id="correct-2" type="checkbox" class="mr-1"> Correct
+                        </label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="choice-3" type="text" class="flex-1 p-2 border border-gray-300 rounded" placeholder="Choice 3">
+                        <label class="ml-2">
+                            <input id="correct-3" type="checkbox" class="mr-1"> Correct
+                        </label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="choice-4" type="text" class="flex-1 p-2 border border-gray-300 rounded" placeholder="Choice 4">
+                        <label class="ml-2">
+                            <input id="correct-4" type="checkbox" class="mr-1"> Correct
+                        </label>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button type="button" id="submit-question" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">Add Question</button>
+                    <button type="button" id="next-question" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">Next Question</button>
+                </div>
+            </form>
+            <button id="close-question-form" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/scripts/instructor.js"></script>
 </body>
 </html>

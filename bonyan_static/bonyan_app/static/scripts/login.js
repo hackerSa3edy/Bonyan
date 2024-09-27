@@ -61,9 +61,10 @@ $(document).ready(function() {
     });
 
     function showError(message) {
-        $('#flash-message').text(message).show();
+        const $flashMessage = $('#flash-message');
+        $flashMessage.text(message).removeClass('hidden');
         setTimeout(function() {
-            $('#flash-message').hide();
+            $flashMessage.addClass('hidden');
         }, 5000);
     }
 });

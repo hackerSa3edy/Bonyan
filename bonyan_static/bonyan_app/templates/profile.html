@@ -4,123 +4,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
-    <!-- google fonts  -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Freeman&family=Raleway:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-    <!-- font awesome link  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <!-- Profile script -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&family=Grand+Hotel&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Raleway', 'sans-serif'],
+                        'logo': ['"Grand Hotel"', 'cursive'],
+                    },
+                }
+            }
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/static/scripts/profile.js"></script>
-    <!-- styling  -->
-    <link rel="stylesheet" href="/static/style/profile.css">
 </head>
-<body>
-    <section class="mainPage">
-        <div class="toolBar">
-            <div class="logo">
-                <i class="fa-solid fa-m"></i>
-                <h2>AAT EXAM</h2>
+<body class="bg-gray-100 font-sans">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <nav class="w-64 bg-gray-800 text-white p-6">
+            <div class="flex items-center mb-8">
+                <i class="fa-solid fa-m text-3xl text-blue-400 mr-3"></i>
+                <h2 class="text-2xl font-logo">AAT EXAM</h2>
             </div>
-            <div class="boardClasses">
-                <div class="dashboard">
-                    <div class="title">
-                        <i class="fa-solid fa-border-all"></i>
-                        <h3><a href="{{ url_for('route_dashboard') }}">DASHBOARD</a></h3>
-                    </div>
-                </div>
-                <div class="profile">
-                    <div class="title">
-                        <i class="fa-solid fa-address-card"></i>
-                    <h3><a href="{{ url_for('route_profile') }}">PROFILE</a></h3>
-                    </div>
-                </div>
-                <div class="admin">
-                    <div class="title">
-                        <i class="fa-solid fa-user-tie"></i>
-                        <h3><a href="{{ url_for('route_admin_panel') }}">ADMIN BOARD</a></h3>
-                    </div>
-                </div>
-                <div class="login">
-                    <div class="title">
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                    <h3><a href="{{ url_for('route_logout') }}">LOGOUT</a></h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="profileData">
-            <div class="top">
-                <h3>Profile</h3>
-                <div class="profile">
-                    <img src="/static/images/profile.png" alt="profileImg">
-                    <p>user name</p>
-                </div>
-            </div>
-            <div class="data">
-                <div class="mainData">
-                    <img src="/static/images/profile.png" alt="profileImg">
-                    <h3>User Name</h3>
-                    <p id="h-level">Level ?</p>
-                    <div class="form">
-                        <div class="user">
-                            <input type="text" id="username" value="" readonly>
-                            <label for="userName"><i class="fa-solid fa-user"></i></label>
+            <ul class="space-y-4">
+                <li>
+                    <a href="{{ url_for('route_dashboard') }}" class="flex items-center p-2 rounded hover:bg-gray-700 transition-colors">
+                        <i class="fa-solid fa-border-all w-6"></i>
+                        <span>DASHBOARD</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('route_profile') }}" class="flex items-center p-2 rounded hover:bg-gray-700 transition-colors">
+                        <i class="fa-solid fa-address-card w-6"></i>
+                        <span>PROFILE</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('route_admin_panel') }}" class="flex items-center p-2 rounded hover:bg-gray-700 transition-colors">
+                        <i class="fa-solid fa-user-tie w-6"></i>
+                        <span>ADMIN BOARD</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('route_logout') }}" class="flex items-center p-2 rounded hover:bg-gray-700 transition-colors">
+                        <i class="fa-solid fa-right-to-bracket w-6"></i>
+                        <span>LOGOUT</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8">
+            <section class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold mb-6">Profile</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <img src="/static/images/profile.png" alt="profileImg" class="w-24 h-24 rounded-full">
+                            <div>
+                                <h3 id="profile-name" class="text-xl font-semibold">User Name</h3>
+                                <p id="h-level" class="text-gray-600">Level ?</p>
+                            </div>
                         </div>
-                        <div class="email">
-                            <input type="email" id="email" value="" readonly>
-                            <label for="userEmail"><i class="fa-solid fa-envelope"></i></label>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-user w-6 text-gray-400"></i>
+                                <input type="text" id="username" class="flex-1 p-2 border border-gray-300 rounded" readonly>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-envelope w-6 text-gray-400"></i>
+                                <input type="email" id="email" class="flex-1 p-2 border border-gray-300 rounded" readonly>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-location-dot w-6 text-gray-400"></i>
+                                <input type="text" id="city" class="flex-1 p-2 border border-gray-300 rounded" readonly>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-layer-group w-6 text-gray-400"></i>
+                                <select name="level" id="level" class="flex-1 p-2 border border-gray-300 rounded" disabled>
+                                    <option value="1">First</option>
+                                    <option value="2">Second</option>
+                                    <option value="3">Third</option>
+                                    <option value="4">Fourth</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="city">
-                            <input type="text" id="city" value="" readonly>
-                            <label for="city"><i class="fa-solid fa-location-dot"></i></label>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" id="first_name" placeholder="first name" class="p-2 border border-gray-300 rounded" readonly>
+                            <input type="text" id="second_name" placeholder="second name" class="p-2 border border-gray-300 rounded" readonly>
+                            <input type="text" id="third_name" placeholder="third name" class="p-2 border border-gray-300 rounded" readonly>
+                            <input type="text" id="fourth_name" placeholder="fourth name" class="p-2 border border-gray-300 rounded" readonly>
                         </div>
-                        <div class="level">
-                            <select name="level" id="level" disabled>
-                                <option value="1">First</option>
-                                <option value="2">Second</option>
-                                <option value="3">Third</option>
-                                <option value="4">Fourth</option>
+                        <div class="flex space-x-4">
+                            <select name="gender" id="gender" class="flex-1 p-2 border border-gray-300 rounded" disabled>
+                                <option value="m">Male</option>
+                                <option value="f">Female</option>
                             </select>
-                            <label for="level"></label>
+                            <input type="text" id="birth_date" placeholder="enter your birth date" class="flex-1 p-2 border border-gray-300 rounded" readonly>
                         </div>
+                        <input type="text" id="address" placeholder="your address" class="w-full p-2 border border-gray-300 rounded" readonly>
+                        <input type="text" id="phone_number" placeholder="your phone number" class="w-full p-2 border border-gray-300 rounded" readonly>
+                        <div class="flex space-x-4">
+                            <input type="text" id="department" placeholder="enter your department" class="flex-1 p-2 border border-gray-300 rounded" readonly>
+                            <input type="text" id="specialization" placeholder="enter your specialization" class="flex-1 p-2 border border-gray-300 rounded" readonly>
+                        </div>
+                        <p id="joined_at" class="text-sm text-gray-600">Joined at: ????/??/??</p>
+                        <div class="flex space-x-4">
+                            <button id="update" class="flex-1 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">Update</button>
+                            <button id="save" class="flex-1 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">Save</button>
+                        </div>
+                        <div id="flash-message" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert"></div>
                     </div>
                 </div>
-                <div class="otherData">
-                    <div class="fullName">
-                            <input type="text" id="first_name" placeholder="first name" value="" readonly>
-                            <input type="text" id="second_name" placeholder="second name" value="" readonly>
-                    </div>
-                    <div class="fullName">
-                        <input type="text" id="third_name" placeholder="third name" value="" readonly>
-                        <input type="text" id="fourth_name" placeholder="fourth name" value="" readonly>
-                    </div>
-                    <div class="gender">
-                        <select name="gender" id="gender" disabled>
-                            <option value="m">Male</option>
-                            <option value="f">Female</option>
-                        </select>
-                        <input type="text" id="birth_date" placeholder="enter your birth date" value="" readonly>
-                    </div>
-                    <div class="address">
-                        <input type="text" id="address" placeholder="your address" value="" readonly>
-                        <input type="text" id="phone_number" placeholder="your phone number" value="" readonly>
-                    </div>
-                    <div class="depart">
-                        <input type="text" id="department" placeholder="enter your department" value="" readonly>
-                        <input type="text" id="specialization" placeholder="enter your specialization" value="" readonly>
-                    </div>
-                    <p id="joined_at">Joined at : ????/??/??</p>
-                    <div class="updateData">
-                        <button id="update">Update</button>
-                        <button id="save">Save</button>
-                    </div>
-                    <div id="flash-message" class="flash-error" style="display: none;"></div>
-                </div>
-            </div>
-        </div>
-    </section>
+            </section>
+        </main>
+    </div>
 </body>
 </html>
