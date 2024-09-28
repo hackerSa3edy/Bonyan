@@ -38,16 +38,17 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+# The following commented-out code is for debugging purposes.
+# It prints all URL patterns in the urlpatterns list.
+# def handle():
+#     for pattern in urlpatterns[1:]:
+#         print_pattern(pattern)
 
-def handle():
-    for pattern in urlpatterns[1:]:
-        print_pattern(pattern)
+# def print_pattern(pattern, prefix=''):
+#     if hasattr(pattern, 'url_patterns'):
+#         for sub_pattern in pattern.url_patterns:
+#             print_pattern(sub_pattern, prefix + pattern.pattern.regex.pattern)
+#     else:
+#         print(f'{prefix}{pattern.pattern.regex.pattern}')
 
-def print_pattern(pattern, prefix=''):
-    if hasattr(pattern, 'url_patterns'):
-        for sub_pattern in pattern.url_patterns:
-            print_pattern(sub_pattern, prefix + pattern.pattern.regex.pattern)
-    else:
-        print(f'{prefix}{pattern.pattern.regex.pattern}')
-
-handle()
+# handle()

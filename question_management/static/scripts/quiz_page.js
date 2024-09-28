@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    // Variables to store quiz state
     let quizId;
     let questions = [];
     let currentQuestionIndex = 0;
@@ -12,7 +13,7 @@ $(document).ready(function() {
     // Extract quiz token from the current URL
     const pathArray = window.location.pathname.split('/');
     const quizToken = pathArray[pathArray.length - 2];
-    
+
     // Authentication functions
     function getAccessToken() {
         return localStorage.getItem('accessToken');
@@ -52,6 +53,7 @@ $(document).ready(function() {
         });
     }
 
+    // Start the quiz by creating an attempt
     function startQuiz() {
         authenticatedRequest('/api/participation/attempts/start_quiz/', 'POST', { quiz_id: quizToken })
             .then(response => {
@@ -65,13 +67,14 @@ $(document).ready(function() {
             });
     }
 
+    // Calculate the duration of the quiz
     function calculateDuration(startTime, endTime) {
         const start = new Date(startTime);
         const end = new Date(endTime);
         const now = new Date();
-    
+
         let durationInSeconds;
-    
+
         if (now < start) {
             durationInSeconds = (end - start) / 1000;
         } else if (now >= start && now <= end) {
@@ -79,10 +82,11 @@ $(document).ready(function() {
         } else {
             durationInSeconds = 0;
         }
-    
+
         return Math.round(durationInSeconds);
     }
 
+    // Fetch quiz details
     function fetchQuizDetails() {
         authenticatedRequest(`/api/quizzes/${quizId}/`, 'GET')
             .then(quizData => {
@@ -97,6 +101,7 @@ $(document).ready(function() {
             });
     }
 
+    // Fetch questions for the quiz
     function fetchQuestions() {
         if (!hasMoreQuestions) return;
         authenticatedRequest(`/api/quizzes/${quizId}/questions/?page=${nextPage}`, 'GET')
@@ -115,10 +120,11 @@ $(document).ready(function() {
             });
     }
 
+    // Display a question
     function displayQuestion(index) {
         const question = questions[index];
         $('#question-text').text(question.text);
-        
+
         const optionsContainer = $('#options-container');
         optionsContainer.empty();
 
@@ -147,17 +153,19 @@ $(document).ready(function() {
         }
 
         updateNavigationButtons();
-        
+
         if (index >= questions.length - 3 && hasMoreQuestions) {
             fetchQuestions();
         }
     }
 
+    // Update navigation buttons
     function updateNavigationButtons() {
         $('#prev-btn').prop('disabled', currentQuestionIndex === 0);
         $('#next-btn').text(currentQuestionIndex === questions.length - 1 ? 'Finish' : 'Next');
     }
 
+    // Handle previous button click
     $('#prev-btn').click(function() {
         if (currentQuestionIndex > 0) {
             currentQuestionIndex--;
@@ -165,6 +173,7 @@ $(document).ready(function() {
         }
     });
 
+    // Handle next button click
     $('#next-btn').click(function() {
         if (currentQuestionIndex < questions.length - 1) {
             currentQuestionIndex++;
@@ -174,8 +183,10 @@ $(document).ready(function() {
         }
     });
 
+    // Handle submit button click
     $('#submit-btn').click(confirmSubmission);
 
+    // Save the current answer
     function saveCurrentAnswer() {
         const selectedOption = $('input[name="quiz-option"]:checked').val();
         if (selectedOption !== undefined) {
@@ -199,12 +210,14 @@ $(document).ready(function() {
         }
     }
 
+    // Confirm quiz submission
     function confirmSubmission() {
         if (confirm('Are you sure you want to submit the quiz? You won\'t be able to change your answers after submission.')) {
             submitQuiz();
         }
     }
 
+    // Submit the quiz
     function submitQuiz() {
         clearInterval(timerInterval);
 
@@ -219,6 +232,7 @@ $(document).ready(function() {
             });
     }
 
+    // Start the quiz timer
     function startTimer() {
         let timeLeft = quizDuration;
         updateTimerDisplay(timeLeft);
@@ -235,12 +249,14 @@ $(document).ready(function() {
         }, 1000);
     }
 
+    // Update the timer display
     function updateTimerDisplay(timeLeft) {
         const minutes = Math.floor(timeLeft / 60);
         const seconds = timeLeft % 60;
         $('#timer').text(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
     }
 
+    // Show a message to the user
     function showMessage(message, color) {
         const popup = $('<div>', {
             class: `bg-${color}-500 text-white p-4 rounded shadow-lg max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto`,
@@ -251,6 +267,7 @@ $(document).ready(function() {
         setTimeout(() => popup.fadeOut(300, function() { $(this).remove(); }), 5000);
     }
 
+    // Make an authenticated request
     function authenticatedRequest(url, method, data, retryCount = 1) {
         return fetch(url, {
             method: method,
@@ -277,5 +294,6 @@ $(document).ready(function() {
         });
     }
 
+    // Start the quiz when the page is ready
     startQuiz();
 });

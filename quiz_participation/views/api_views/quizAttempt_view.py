@@ -9,15 +9,38 @@ from quiz_management.models import Quiz
 from question_management.models import Question
 
 class QuizAttemptViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet for managing quiz attempts.
+
+    This ViewSet provides actions to start a quiz, submit answers, finish a quiz, and view results.
+    It ensures that only authenticated users can access these actions.
+    """
     queryset = QuizAttempt.objects.all()
     serializer_class = QuizAttemptSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
+        """
+        Returns the queryset of quiz attempts for the authenticated user.
+
+        Returns:
+            QuerySet: The queryset of quiz attempts for the authenticated user.
+        """
         return QuizAttempt.objects.filter(user=self.request.user)
 
     @action(detail=False, methods=['post'])
     def start_quiz(self, request):
+        """
+        Starts a new quiz attempt.
+
+        This action validates the quiz ID, checks if the quiz is available, and creates a new quiz attempt.
+
+        Args:
+            request (Request): The request object containing the quiz ID.
+
+        Returns:
+            Response: The response containing the quiz attempt data or an error message.
+        """
         serializer = StartQuizSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         quiz_id = serializer.validated_data['quiz_id']
@@ -40,6 +63,19 @@ class QuizAttemptViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post'])
     def submit_answer(self, request, pk=None):
+        """
+        Submits an answer for a quiz question.
+
+        This action validates the question ID and user answer, checks if the question belongs to the quiz,
+        and creates or updates the user's answer.
+
+        Args:
+            request (Request): The request object containing the question ID and user answer.
+            pk (str): The primary key of the quiz attempt.
+
+        Returns:
+            Response: The response containing the user answer data or an error message.
+        """
         quiz_attempt = self.get_object()
         if quiz_attempt.is_completed:
             return Response({"error": "This quiz attempt has already been completed"}, status=status.HTTP_400_BAD_REQUEST)
@@ -65,6 +101,18 @@ class QuizAttemptViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post'])
     def finish_quiz(self, request, pk=None):
+        """
+        Finishes a quiz attempt.
+
+        This action marks the quiz attempt as completed, calculates the score, and updates the quiz attempt.
+
+        Args:
+            request (Request): The request object.
+            pk (str): The primary key of the quiz attempt.
+
+        Returns:
+            Response: The response containing the quiz attempt data or an error message.
+        """
         quiz_attempt = self.get_object()
         if quiz_attempt.is_completed:
             return Response({"error": "This quiz attempt has already been completed"}, status=status.HTTP_400_BAD_REQUEST)
@@ -92,6 +140,18 @@ class QuizAttemptViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['get'])
     def results(self, request, pk=None):
+        """
+        Retrieves the results of a completed quiz attempt.
+
+        This action returns the quiz attempt data if the quiz attempt is completed.
+
+        Args:
+            request (Request): The request object.
+            pk (str): The primary key of the quiz attempt.
+
+        Returns:
+            Response: The response containing the quiz attempt data or an error message.
+        """
         quiz_attempt = self.get_object()
         if not quiz_attempt.is_completed:
             return Response({"error": "This quiz attempt has not been completed yet"}, status=status.HTTP_400_BAD_REQUEST)

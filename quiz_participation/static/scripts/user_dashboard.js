@@ -1,4 +1,9 @@
 $(document).ready(function() {
+    /**
+     * Displays a popup message.
+     * @param {string} message - The message to display.
+     * @param {string} color - The color of the popup background.
+     */
     function showMessage(message, color) {
         const popup = $('<div>', {
             class: `bg-${color}-500 text-white p-4 rounded shadow-lg max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto`,
@@ -9,7 +14,7 @@ $(document).ready(function() {
         setTimeout(() => popup.fadeOut(300, function() { $(this).remove(); }), 5000);
     }
 
-    // Toggle sidebar
+    // Toggle sidebar visibility
     $('#toggle-sidebar').click(function() {
         $('#sidebar').toggleClass('-translate-x-full');
         $('#main-content').toggleClass('lg:ml-64');
@@ -21,7 +26,7 @@ $(document).ready(function() {
         }
     });
 
-    // Toggle between list and grid view
+    // Toggle between list and grid view for quizzes
     $('#grid-view-icon').click(function() {
         $('#quizzes-container').removeClass('grid-cols-1 lg:grid-cols-2');
         $('#quizzes-attempts, #quizzes').addClass('grid-quiz-container').removeClass('space-y-4');
@@ -37,19 +42,34 @@ $(document).ready(function() {
     });
 
     // Authentication functions
+    /**
+     * Retrieves the access token from local storage.
+     * @returns {string} The access token.
+     */
     function getAccessToken() {
         return localStorage.getItem('accessToken');
     }
 
+    /**
+     * Retrieves the refresh token from local storage.
+     * @returns {string} The refresh token.
+     */
     function getRefreshToken() {
         return localStorage.getItem('refreshToken');
     }
 
+    /**
+     * Clears the access and refresh tokens from local storage.
+     */
     function clearTokens() {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
     }
 
+    /**
+     * Refreshes the access token using the refresh token.
+     * @returns {Promise} A promise that resolves when the token is refreshed.
+     */
     function refreshAccessToken() {
         return fetch('/api/auth/token/refresh/', {
             method: 'POST',
@@ -75,6 +95,14 @@ $(document).ready(function() {
         });
     }
 
+    /**
+     * Makes an authenticated request to the specified URL.
+     * @param {string} url - The URL to request.
+     * @param {string} method - The HTTP method to use.
+     * @param {Object} [data] - The data to send with the request.
+     * @param {number} [retryCount=1] - The number of times to retry the request if unauthorized.
+     * @returns {Promise} A promise that resolves with the response data.
+     */
     function authenticatedRequest(url, method, data, retryCount = 1) {
         return fetch(url, {
             method: method,
@@ -101,15 +129,14 @@ $(document).ready(function() {
         });
     }
 
-    // Fetch user profile
+    /**
+     * Fetches the user profile and updates the UI.
+     */
     function fetchUserProfile() {
-        // Fetch user profile data from the backend
         authenticatedRequest('/api/user/profile/', 'GET')
             .then(data => {
-                // Update the header username
                 $('#header-username').text(data.first_name + ' ' + data.last_name);
-    
-                // Update the profile picture or initials
+
                 if (data.avatar) {
                     $('.profile-pic').attr('src', data.avatar).removeClass('hidden');
                     $('.avatar-initials').addClass('hidden');
@@ -120,12 +147,11 @@ $(document).ready(function() {
             })
             .catch(error => {
                 console.error('Error fetching user profile:', error);
-                // Optionally, display an error message to the user
                 showMessage('Failed to fetch user profile. Please try again.', 'red');
             });
     }
 
-    // Initialize sidebar state
+    // Initialize sidebar state based on window width
     if ($(window).width() >= 1024) {
         $('#sidebar').removeClass('-translate-x-full');
         $('#main-content').addClass('lg:ml-64');
@@ -142,10 +168,9 @@ $(document).ready(function() {
         authenticatedRequest('/api/auth/logout/', 'POST', { refresh: getRefreshToken() })
             .then(() => {
                 showMessage('Logged out successfully!', 'green');
-                // Wait for 2 seconds, then clear tokens and redirect to login page
                 setTimeout(() => {
-                    clearTokens(); // Function to clear tokens
-                    window.location.href = '/login'; // Redirect to login page
+                    clearTokens();
+                    window.location.href = '/login';
                 }, 2000);
             })
             .catch(() => {
@@ -153,7 +178,9 @@ $(document).ready(function() {
             });
     });
 
-   // Fetch quizzes and populate the dashboard
+    /**
+     * Fetches quizzes and populates the dashboard.
+     */
     function fetchQuizzes() {
         authenticatedRequest('/api/quizzes/', 'GET')
             .then(quizzes => {
@@ -171,7 +198,9 @@ $(document).ready(function() {
             });
     }
 
-    // Fetch quiz attempts
+    /**
+     * Fetches quiz attempts and populates the dashboard.
+     */
     function fetchQuizAttempts() {
         authenticatedRequest('/api/participation/attempts/', 'GET')
             .then(attempts => {
@@ -187,6 +216,11 @@ $(document).ready(function() {
             });
     }
 
+    /**
+     * Creates a quiz card element.
+     * @param {Object} quiz - The quiz data.
+     * @returns {string} The HTML string for the quiz card.
+     */
     function createQuizCard(quiz) {
         const startTime = new Date(quiz.start_time);
         const endTime = new Date(quiz.end_time);
@@ -217,6 +251,11 @@ $(document).ready(function() {
         `;
     }
 
+    /**
+     * Creates a quiz attempt card element.
+     * @param {Object} attempt - The quiz attempt data.
+     * @returns {string} The HTML string for the quiz attempt card.
+     */
     function createAttemptCard(attempt) {
         const startTime = new Date(attempt.start_time);
         const completedAt = attempt.completed_at ? new Date(attempt.completed_at) : null;
@@ -251,5 +290,4 @@ $(document).ready(function() {
         // Implement view/continue quiz logic here
         console.log('Viewing/Continuing attempt:', attemptId);
     });
-
 });

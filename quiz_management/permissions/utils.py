@@ -5,6 +5,27 @@ from question_management.models import Question
 from quiz_participation.models import QuizAttempt, UserAnswer
 
 def create_quiz_permissions():
+    """
+    Create and assign permissions for quiz-related actions to specific groups.
+
+    This function creates three groups: 'Quiz Creator', 'Quiz Resolver', and 'Admin'.
+    It defines and assigns specific permissions to each group based on their roles.
+
+    Groups and Permissions:
+    - Quiz Creator:
+        - Can create, edit, delete, and view quizzes.
+        - Can create, edit, and delete questions.
+        - Can assign quizzes.
+    - Quiz Resolver:
+        - Can take and view quizzes.
+        - Can create quiz attempts and submit answers.
+    - Admin:
+        - All permissions of Quiz Creator and Quiz Resolver.
+        - Can manage users and view reports.
+
+    The function ensures that each permission is created if it does not already exist and assigns them to the respective groups.
+    """
+
     # Create groups
     creator_group, _ = Group.objects.get_or_create(name='Quiz Creator')
     resolver_group, _ = Group.objects.get_or_create(name='Quiz Resolver')

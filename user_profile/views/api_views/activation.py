@@ -9,9 +9,33 @@ from django.utils import timezone
 User = get_user_model()
 
 class UserActivationView(generics.GenericAPIView):
+    """
+    API view for activating a user's account.
+
+    This view allows a user to activate their account using an activation token.
+    It verifies the token, activates the user's account if the token is valid and not expired,
+    and sends an account activation email to the user.
+
+    Attributes:
+        permission_classes (tuple): The tuple of permission classes required to access this view.
+    """
     permission_classes = (AllowAny,)
 
     def get(self, request, token):
+        """
+        Handles GET requests for account activation.
+
+        This method retrieves the activation token, checks its validity and expiry,
+        activates the user's account if valid, and sends an account activation email.
+        If the token is invalid or expired, it returns an appropriate error response.
+
+        Args:
+            request (Request): The HTTP request object.
+            token (str): The activation token.
+
+        Returns:
+            Response: The HTTP response indicating the result of the activation process.
+        """
         try:
             activation_token = ActivationToken.objects.get(token=token)
             user = activation_token.user

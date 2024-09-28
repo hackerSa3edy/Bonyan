@@ -8,7 +8,20 @@ from user_profile.models import ActivationToken
 
 @shared_task
 def send_activation_email(user_fname, user_email, activation_link):
-    
+    """
+    Sends an activation email to the user.
+
+    This task renders an HTML email template with the provided user first name and activation link,
+    creates an email with both HTML and plain text content, and sends it to the user's email address.
+
+    Args:
+        user_fname (str): The first name of the user.
+        user_email (str): The email address of the user.
+        activation_link (str): The activation link to be included in the email.
+
+    Returns:
+        None
+    """
     # Render the HTML template with dynamic data
     html_content = render_to_string('activation_email.html', {
         'activation_link': activation_link,
@@ -24,7 +37,6 @@ def send_activation_email(user_fname, user_email, activation_link):
         settings.EMAIL_HOST_USER,
         [user_email],
     )
-
     email.attach_alternative(html_content, "text/html")
 
     # Send the email
@@ -34,11 +46,20 @@ def send_activation_email(user_fname, user_email, activation_link):
         # Log the error or handle it as needed
         print(f"Failed to send email: {e}")
 
-
-
-
 @shared_task
 def delete_user_and_token(token):
+    """
+    Deletes the user and their activation token if the token has expired.
+
+    This task retrieves the activation token using the provided token string, checks if the token
+    has expired, and if so, deletes both the token and the associated user.
+
+    Args:
+        token (str): The activation token string.
+
+    Returns:
+        None
+    """
     try:
         activation_token = ActivationToken.objects.get(token=token)
         user = activation_token.user
@@ -48,19 +69,31 @@ def delete_user_and_token(token):
     except ActivationToken.DoesNotExist:
         pass
 
-
 @shared_task
 def send_account_activated_email(user_fname, user_email):
+    """
+    Sends an account activation confirmation email to the user.
+
+    This task renders an HTML email template with the provided user first name and login URL,
+    creates an email with both HTML and plain text content, and sends it to the user's email address.
+
+    Args:
+        user_fname (str): The first name of the user.
+        user_email (str): The email address of the user.
+
+    Returns:
+        None
+    """
     # Render the HTML template with dynamic data
     html_content = render_to_string('activated_email.html', {
         'user_fname': user_fname,
         'login_url': f'{settings.FRONTEND_URL}/login',
         'frontend_url': settings.FRONTEND_URL,
     })
-    
+
     # Create the plain text content
     text_content = strip_tags(html_content)
-    
+
     # Create the email
     email = EmailMultiAlternatives(
         'Account Activated Successfully',
@@ -69,7 +102,7 @@ def send_account_activated_email(user_fname, user_email):
         [user_email],
     )
     email.attach_alternative(html_content, "text/html")
-    
+
     # Send the email
     try:
         email.send(fail_silently=False)
