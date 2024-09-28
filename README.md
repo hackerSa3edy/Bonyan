@@ -27,8 +27,8 @@ Bonyan is a comprehensive platform designed to streamline examination processes 
     ```
 
 5. **Access the Application:**
-  API: `http://127.0.0.1/api/`
-  Database: `127.0.0.1:5432`
+  - API: `http://127.0.0.1/api/`
+  - Database: `127.0.0.1:5432`
 
 ## Features
 
