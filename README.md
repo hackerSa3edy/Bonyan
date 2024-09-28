@@ -18,7 +18,7 @@ Bonyan is a comprehensive platform designed to streamline examination processes 
   Ensure you have Docker installed. If not, install Docker.
   Switch to the relevant branch if needed:
     ```sh
-    git switch master
+    git switch Bonyan-v2
     ```
 
 4. Start the Application:
